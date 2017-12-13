@@ -1,25 +1,17 @@
 {
-  "name": "react-music-player",
+  "name": "music-player",
   "version": "1.0.0",
-  "description": "music player build with react, redux and react-router with the help of webpack.",
-  "main": "index.js",
+  "description": "a music player by react",
+  "main": "app/index.js",
   "scripts": {
-    "test": "",
-    "start": "node server",
-    "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "eslint": "eslint ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "es6",
     "react",
-    "redux"
+    "music-player"
   ],
-  "author": "musiq",
+  "author": "zhaoqing",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xiaolin3303/react-music-player"
-  },  
   "dependencies": {
     "pubsub-js": "^1.5.4",
     "react": "^15.0.2",

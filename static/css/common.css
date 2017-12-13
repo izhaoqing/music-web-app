@@ -27,7 +27,7 @@
     text-align: right;
 }
 .ft12 {
-    font-size: 12px;
+    font-size: .6rem;
 }
 .bold {
     font-weight: bold;
@@ -161,6 +161,10 @@
 .fl{ float: left;}
 .fr{ float: right;}
 
+.iconfont { display: flex; flex-direction: column;
+    align-items:center;
+    justify-content: center; }
+
 .icon {
     display: inline-block;
     width: 32px;
@@ -197,3 +201,19 @@
     background-size: 16px auto;    
     background-position: 0 -112px;
 }
+
+.pull-left {
+    width: 2rem;
+    height: 100%;
+    float: left;
+    position: relative;
+    z-index: 2;
+}
+.pull-right {
+    width: 2rem;
+    height: 100%;
+    float: right;
+    position: relative;
+    z-index: 2;
+}
+

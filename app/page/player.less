@@ -1,0 +1,91 @@
+.player-page {
+  position: absolute;
+  top: 4rem;
+  bottom: 1rem;
+  padding: 0 .75rem;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  .caption {
+    font-size: .8rem;
+    color: rgb(47, 152, 66);
+  }
+
+  .cover {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    img {
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+    }
+  }
+  .controll-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction:column;
+  }
+  .volume-container {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+  .volume-container .volume-wrapper {
+    opacity: 0;
+    transition: opacity .5s linear;
+  }
+  .volume-container:hover .volume-wrapper {
+    opacity: 1;
+  }
+  .music-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgb(3, 3, 3);
+    height: 2rem;
+    line-height: 2rem;
+  }
+  .music-artist {
+    font-size: .75rem;
+    font-weight: 400;
+    margin-bottom: .8rem;
+    color: rgb(74, 74, 74);
+  }
+  .left-time {
+    font-size: .7rem;
+    color: #999;
+    font-weight: 400;
+    width: 2rem;
+  }
+  .icon {
+    cursor: pointer;
+  }
+  .volume-wrapper {
+    width: 3rem;
+    display: inline-block;
+  }
+
+  .set-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    height: 2rem;
+  }
+  .next, .prev {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 .4rem;
+    font-size: 1.2rem;
+
+  }
+  .play, .pause {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2.2rem;
+  }
+}

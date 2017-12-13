@@ -105,3 +105,35 @@ table {
 .clearfix {
     *zoom: 1;
 }
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.w100p { width: 100%; }
+.h100p { height: 100%; }
+.min-w100p { min-width: 100%; }
+.min-h100p { min-height: 100%; }
+
+html {
+    font-size: 20px
+}
+
+@media only screen and (min-width: 400px) {
+    html {
+        font-size: 21.33px !important
+    }
+}
+
+@media only screen and (min-width: 414px) {
+    html {
+        font-size: 22.08px !important
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    html {
+        font-size: 25.6px !important
+    }
+}
