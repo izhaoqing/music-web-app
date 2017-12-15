@@ -202,18 +202,5 @@
     background-position: 0 -112px;
 }
 
-.pull-left {
-    width: 2rem;
-    height: 100%;
-    float: left;
-    position: relative;
-    z-index: 2;
-}
-.pull-right {
-    width: 2rem;
-    height: 100%;
-    float: right;
-    position: relative;
-    z-index: 2;
-}
+
 
