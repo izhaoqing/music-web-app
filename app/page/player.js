@@ -127,8 +127,8 @@ export default class Player extends Component {
                                 ></i>
                                 <i className="next iconfont icon-fanhui1-copy" onClick={this.nextMusic}></i>
                             </div>
-                            <div className="">
-                                <i className={`icon ${this.state.repeatOnce? 'repeat-once' : 'repeat-cycle'}`}
+                            <div className="set-repeat-icon">
+                                <i className={`iconfont repeat ${this.state.repeatOnce? 'icon-danquxunhuan' : 'icon-xunhuan'}`}
                                    onClick={this.changeRepeat.bind(this)}
                                 ></i>
                             </div>
