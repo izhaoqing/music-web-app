@@ -4,6 +4,7 @@ import MUSIC_LIST from './config/musicList';
 import MusicList from './components/musicList';
 import { Router, Route, IndexRoute, Link, hashHistory} from 'react-router';
 import Pubsub from 'pubsub-js';
+import Billboard from "./components/billboard";
 
 class App extends Component {
     constructor(props) {
@@ -87,6 +88,7 @@ export default class Root extends Component {
             <Router history={hashHistory}>
                 <Route path='/' component={App}>
                     <IndexRoute component={Player}></IndexRoute>
+                    <Route path='billboard' component={Billboard}></Route>
                     <Route path='list' component={MusicList}></Route>
                 </Route>
             </Router>

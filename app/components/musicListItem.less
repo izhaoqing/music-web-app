@@ -1,7 +1,7 @@
 .components-listitem {
   font-size: .85rem;
-  padding: .5rem 0 .4rem;
-  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0 .5rem;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
   .delete {
     cursor: pointer;
@@ -31,11 +31,9 @@
       top: 0;
     }
   }
-
-  &.focus {
-    color: #2f9842;
+  &:last-child {
+    border-bottom: none;
   }
-
   .artist { font-size: .7rem; color: #999; margin-top: .1rem; }
 }
 

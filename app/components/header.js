@@ -14,7 +14,7 @@ class Header extends Component {
                 <h1 className="caption">{this.props.title}</h1>
                 { this.props.right === 'list' ?
                     <Link className='pull-right iconfont icon-liebiao1'
-                          to='/list'
+                          to='/billboard'
                           style={{fontSize: '1rem'}}
                     ></Link> : ''}
             </div>
