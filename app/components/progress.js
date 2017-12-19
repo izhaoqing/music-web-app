@@ -1,3 +1,4 @@
+/*播放进度条，音量进度条*/
 import React, { Component } from 'react';
 import './progress.less';
 

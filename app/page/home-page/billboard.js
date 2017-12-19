@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './billboard.less';
-import Header from './header.js';
 import { Link } from 'react-router';
-import { getTopList} from "../api/rank";
+import { getTopList} from "../../api/rank";
+import ProcessBar from "../../components/process-bar";
+import PageHeader from './page-header';
 
 export default class Billboard extends Component {
     constructor(props) {
@@ -24,9 +25,10 @@ export default class Billboard extends Component {
     }
     render () {
         return (
-            <div>
-                <Header title='榜单' left={'left'}/>
-                <div className={!this.state.isHidden ? 'hidden' : 'show'}>加载中</div>
+            <div className='parent-box'>
+                {/*<Header title='榜单' left={'left'}/>*/}
+                <PageHeader active='billboard'/>
+                <ProcessBar/>
                 <div id={'content'}>
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div style={{padding: `0 0 .5rem`}} className={this.state.isHidden ? 'hidden' : 'show'}>

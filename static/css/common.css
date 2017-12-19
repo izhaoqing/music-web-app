@@ -118,14 +118,34 @@
     background-position: 0 -112px;
 }
 
+body, #root, #root>div, .parent-box, .wh{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
 #content {
     position: absolute;
     top: 2.2rem;
     bottom: 0;
-    width: 100%;
+    right: 0;
+    left: 0;
+    overflow: scroll;
 }
 .hidden { opacity: 0; transition: .1s;}
 .show { opacity: 1; transition: .1s;}
 .ell { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .loading { padding: 3rem 0; font-size: .8rem; width: 100%; color: #999; text-align: center; position: absolute; top: 0; left: 0; z-index: -1;}
 
+.process-bar~#content { bottom: 2.6rem;}
+.page-header~#content { top: 4rem;}
+
+.filter {
+    -webkit-filter: blur(10px); /* Chrome, Opera */
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+    overflow: hidden;
+}

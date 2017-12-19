@@ -32,15 +32,16 @@ export default class MusicList extends Component {
                 <div id="content">
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div className={this.state.isHidden ? 'hidden' : 'show'}>
-                        <div className='top-info'>
+                        <div className='top-info' >
                             <img src={item.topinfo.pic_album} alt=""/>
                             <div className='info'>
                                 <p className='title'>{item.topinfo.ListName}</p>
                                 <p>第{item.day_of_year || 1}天</p>
                                 <p>更新时间：{item.update_time}</p>
                             </div>
+                            <i className="mark filter" style={{backgroundImage:`url(${item.topinfo.pic_album})`}}></i>
                         </div>
-                        <ul style={{margin:'0 .75rem'}}>
+                        <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
                             {item.songlist.map((item) => {
                                 let isFocus = item.id === this.props.currentMusicItem.id;
                                 return(

@@ -1,3 +1,8 @@
+.player .components-header {
+  border: none;
+  background: transparent;
+  color: #000;
+}
 .player-page {
   position: absolute;
   top: 2.2rem;
@@ -6,10 +11,7 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
-  .caption {
-    font-size: .8rem;
-    color: rgb(47, 152, 66);
-  }
+  color: #000;
 
   .cover {
     width: 100%;
@@ -44,7 +46,6 @@
   .music-title {
     font-size: 1rem;
     font-weight: 400;
-    color: rgb(3, 3, 3);
     height: 2rem;
     line-height: 2rem;
   }
@@ -52,11 +53,9 @@
     font-size: .75rem;
     font-weight: 400;
     margin-bottom: .8rem;
-    color: rgb(74, 74, 74);
   }
   .left-time {
     font-size: .7rem;
-    color: #999;
     font-weight: 400;
     width: 2rem;
   }
@@ -97,4 +96,11 @@
   .repeat {
     font-size: 1.2rem;
   }
+
+}
+.bg-pic {
+  background-position:center center;
+  background-size: 100% auto;
+  filter: blur(50px);
+  z-index: -1;
 }

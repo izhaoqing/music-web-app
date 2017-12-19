@@ -84,57 +84,55 @@ export default class Player extends Component {
     }
     render() {
         return(
-            <div>
+            <div className='player wh'>
                 <Header title={this.props.currentMusicItem.title} left={'left'} right={'list'}/>
-            <div className="player-page flex">
-                {/*<h1 className="caption">*/}
-                    {/*<Link to='/list'>我的私人音乐坊 &gt;</Link>*/}
-                {/*</h1>*/}
-                    <div className="cover">
-                        <img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
+                <div className="player-page flex">
+                <div className="cover">
+                    <img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
+                </div>
+                <div className="controll-wrapper">
+                    <h2 className="music-title">{this.props.currentMusicItem.title}</h2>
+                    <h3 className="music-artist">{this.props.currentMusicItem.artist}</h3>
+                    <div className="flex" style={{flexDirection: 'row'}}>
+                        <div className="volume-container flex">
+                            <i className="icon-volume" style={{marginRight: '.3rem'}}></i>
+                            <div className="volume-wrapper">
+                                <Progress
+                                    progress={this.state.volume}
+                                    onProgressChange={this.changeVolumeHandler}
+                                    barColor='#aaa'
+                                >
+                                </Progress>
+                            </div>
+                        </div>
+                        <div className="left-time -col-auto">{this.formatTime(this.state.left)}</div>
                     </div>
-                    <div className="controll-wrapper">
-                        <h2 className="music-title">{this.props.currentMusicItem.title}</h2>
-                        <h3 className="music-artist">{this.props.currentMusicItem.artist}</h3>
-                        <div className="flex" style={{flexDirection: 'row'}}>
-                            <div className="volume-container flex">
-                                <i className="icon-volume" style={{marginRight: '.3rem'}}></i>
-                                <div className="volume-wrapper">
-                                    <Progress
-                                        progress={this.state.volume}
-                                        onProgressChange={this.changeVolumeHandler}
-                                        barColor='#aaa'
-                                    >
-                                    </Progress>
-                                </div>
-                            </div>
-                            <div className="left-time -col-auto">{this.formatTime(this.state.left)}</div>
+                    <div style={{height: '.5rem', marginTop: '.5rem', marginBottom: '.6rem'}}>
+                        <Progress
+                            progress={this.state.progress}
+                            onProgressChange={this.handlePressChange}
+                        >
+                        </Progress>
+                    </div>
+                    <div className="flex" style={{flexDirection: 'row', justifyContent: 'space-between', position: 'relative', alignItems:'center', height:'2rem'}}>
+                        <div className='w100p flex set-icon'>
+                            <i className="iconfont icon-fanhui1 prev"
+                               onClick={this.prevMusic}
+                            ></i>
+                            <i className={`iconfont change ${!this.state.isPlay ? 'icon-bofang pause' : 'icon-zanting play'}`}
+                               onClick={this.play.bind(this)}
+                            ></i>
+                            <i className="next iconfont icon-fanhui1-copy" onClick={this.nextMusic}></i>
                         </div>
-                        <div style={{height: '.5rem', marginTop: '.5rem', marginBottom: '.6rem'}}>
-                            <Progress
-                                progress={this.state.progress}
-                                onProgressChange={this.handlePressChange}
-                            >
-                            </Progress>
-                        </div>
-                        <div className="flex" style={{flexDirection: 'row', justifyContent: 'space-between', position: 'relative', alignItems:'center', height:'2rem'}}>
-                            <div className='w100p flex set-icon'>
-                                <i className="iconfont icon-fanhui1 prev"
-                                   onClick={this.prevMusic}
-                                ></i>
-                                <i className={`iconfont change ${!this.state.isPlay ? 'icon-bofang pause' : 'icon-zanting play'}`}
-                                   onClick={this.play.bind(this)}
-                                ></i>
-                                <i className="next iconfont icon-fanhui1-copy" onClick={this.nextMusic}></i>
-                            </div>
-                            <div className="set-repeat-icon">
-                                <i className={`iconfont repeat ${this.state.repeatOnce? 'icon-danquxunhuan' : 'icon-xunhuan'}`}
-                                   onClick={this.changeRepeat.bind(this)}
-                                ></i>
-                            </div>
+                        <div className="set-repeat-icon">
+                            <i className={`iconfont repeat ${this.state.repeatOnce? 'icon-danquxunhuan' : 'icon-xunhuan'}`}
+                               onClick={this.changeRepeat.bind(this)}
+                            ></i>
                         </div>
                     </div>
+                </div>
             </div>
+                <div className='filter wh bg-pic' style={{backgroundImage: `url(${this.props.currentMusicItem.cover})`}}></div>
             </div>
         );
     }

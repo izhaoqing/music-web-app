@@ -4,7 +4,8 @@ import MUSIC_LIST from './config/musicList';
 import MusicList from './components/musicList';
 import { Router, Route, IndexRoute, Link, hashHistory} from 'react-router';
 import Pubsub from 'pubsub-js';
-import Billboard from "./components/billboard";
+import Billboard from "./page/home-page/billboard";
+import Search from './page/home-page/search'
 
 class App extends Component {
     constructor(props) {
@@ -90,6 +91,7 @@ export default class Root extends Component {
                     <IndexRoute component={Player}></IndexRoute>
                     <Route path='billboard' component={Billboard}></Route>
                     <Route path='list' component={MusicList}></Route>
+                    <Route path='search' component={Search}></Route>
                 </Route>
             </Router>
         )
