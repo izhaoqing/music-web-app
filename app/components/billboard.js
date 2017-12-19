@@ -8,7 +8,8 @@ export default class Billboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            topList: []
+            topList: [],
+            isHidden: true
         }
     }
     componentDidMount() {
@@ -16,7 +17,8 @@ export default class Billboard extends Component {
         getTopList().then(function (res){
             console.log(res);
             _this.setState({
-                topList: res.data.topList
+                topList: res.data.topList,
+                isHidden: false
             });
         });
     }
@@ -24,8 +26,10 @@ export default class Billboard extends Component {
         return (
             <div>
                 <Header title='榜单' left={'left'}/>
+                <div className={!this.state.isHidden ? 'hidden' : 'show'}>加载中</div>
                 <div id={'content'}>
-                    <div style={{padding: `0 0 .5rem`}}>
+                    <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
+                    <div style={{padding: `0 0 .5rem`}} className={this.state.isHidden ? 'hidden' : 'show'}>
                         {
                             this.state.topList.map((item)=> {
                                 return (
@@ -37,7 +41,7 @@ export default class Billboard extends Component {
                                                     {
                                                         item.songList.map((item)=>{
                                                             return (
-                                                                <li className={'ell'} key={item.songname}>{item.songname}-{item.singername}</li>
+                                                                <li className={'ell'} key={item.songname}>{item.songname} <span style={{color: '#999'}}>-{item.singername}</span></li>
                                                             )
                                                         })
                                                     }
