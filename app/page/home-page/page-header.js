@@ -20,7 +20,9 @@ export default class PageHeader extends Component {
                     <li className={active === '1' ? 'active' : ''}>
                         推荐
                     </li>
-                    <li className={active === '2' ? 'active' : ''}>歌手</li>
+                    <li className={active === 'singer' ? 'active' : ''}>
+                        <Link to='/singer'>歌手</Link>
+                    </li>
                     <li className={active === 'billboard' ? 'active' : ''}>
                         <Link to='/billboard'>榜单</Link>
                     </li>
