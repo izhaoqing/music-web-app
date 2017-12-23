@@ -5,11 +5,12 @@
   .key {
     font-size: .75rem;
     background: #e1e1e1;
-    padding: 0.2rem .75rem;
+    padding: 0.3rem .75rem;
+    line-height:.8rem;
   }
   .singer-list {
     padding: .5rem 0;
-    li {
+    li a {
       display: flex;
       align-items: center;
       padding: .5rem 1rem;
@@ -23,18 +24,22 @@
     }
   }
 
-  .tag {
+  .tag-box{
     position: absolute;
     top: 1rem;
     bottom: 1rem;
     right: 0;
-    background: #ccc;
+    background: rgba(200,200,200,.4);
+    padding: 1rem 0;
     border-radius: 3rem;
+  }
+
+  .tag-list {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    padding: 1rem 0;
     li {
       font-size: .7rem;
     }

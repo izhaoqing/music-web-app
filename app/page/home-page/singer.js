@@ -3,7 +3,7 @@ import './singer.less';
 import { Link } from 'react-router';
 import ProcessBar from "../../components/process-bar";
 import PageHeader from './page-header';
-import {getSingerList, getSingerDetail} from '../../api/singer';
+import { getSingerList } from '../../api/singer';
 
 export default class Singer extends Component {
     constructor(props) {
@@ -26,14 +26,15 @@ export default class Singer extends Component {
             let keys = ['热', ...this.arrRepeat(keyArr)];
 
             //歌手数据
-            let singers = [{Findex: '热门', list: []}];
+            let singers = [{Findex: '热门', id: '热', list: []}];
 
             //热门歌手
             let hotSingers = res.data.list.slice(0,10);
             for (let i=0; i<hotSingers.length; i++) {
                 singers[0].list.push({
                     Fsinger_name: hotSingers[i].Fsinger_name,
-                    Fsinger_id: hotSingers[i].Fsinger_id
+                    Fsinger_id: hotSingers[i].Fsinger_id,
+                    Fsinger_mid: hotSingers[i].Fsinger_mid
                 });
             }
 
@@ -45,7 +46,8 @@ export default class Singer extends Component {
                     if (keys[i] === singerData[j].Findex) {
                         data.list.push({
                             Fsinger_name: singerData[j].Fsinger_name,
-                            Fsinger_id: singerData[j].Fsinger_id
+                            Fsinger_id: singerData[j].Fsinger_id,
+                            Fsinger_mid: singerData[j].Fsinger_mid
                         });
                     }
                 }
@@ -54,9 +56,6 @@ export default class Singer extends Component {
 
             this.setState({keys, singers});
         });
-        // getSingerDetail('0025NhlN2yWrP4').then(res => {
-        //     console.log(res);
-        // })
     }
 
     //去重/排序
@@ -71,6 +70,44 @@ export default class Singer extends Component {
         return newArr.sort();
     }
 
+    //点击锚点
+    scrollTo(id) {
+        console.log(id)
+        document.querySelector(id).scrollIntoView();
+    }
+
+    //滑动锚点
+    touchTo(e) {
+        e.preventDefault();
+        let node = document.querySelector('.tag-list'); //ul节点
+        let lis = node.querySelectorAll('li');      //ul下的所有li
+
+        //节点到页面顶部距离
+        let getElementTop = function(node){
+            let top = node.offsetTop;
+            let cur = node.offsetParent;
+            while(cur !== null){
+                top += cur.offsetTop;
+                cur = cur.offsetParent;
+            }
+            return top;
+        };
+
+        let nodeTop = getElementTop(node);  //ul离页面顶部距离
+
+        let nodeHeight = node.offsetHeight;  //ul的height
+
+        let long = e.changedTouches[0].clientY - nodeTop;  //触摸点到ul顶部的距离
+
+        //判断滑动到哪个li上
+        let index = Math.ceil(long/(nodeHeight/lis.length));
+
+        index = index < 1 ? 1 : index > lis.length ? lis.length : index;
+
+        this.scrollTo('#tag-'+lis[index-1].getAttribute('data-tag'));
+
+    }
+
     render() {
         return (
             <div className='wh'>
@@ -82,14 +119,16 @@ export default class Singer extends Component {
                             this.state.singers.map(item => {
                                 return (
                                     <li key={item.Findex}>
-                                        <p className='key'>{item.Findex}</p>
+                                        <p className='key' id={'tag-'+(item.id || item.Findex)}>{item.Findex}</p>
                                         <ul className='singer-list'>
                                             {
                                                 item.list.map(data => {
                                                     return (
-                                                        <li key={data.Fsinger_id} data-id={data.Fsinger_id}>
-                                                            <img src="https://y.gtimg.cn/music/photo_new/T006R300x300M000004bFmjW2PXSqF.jpg?max_age=2592000" alt=""/>
-                                                            <span>{data.Fsinger_name}</span>
+                                                        <li key={data.Fsinger_id}>
+                                                            <Link to={{pathname:"/singerDetail", query:{id: data.Fsinger_mid}, state:{}  }}>
+                                                                <img src={`https://y.gtimg.cn/music/photo_new/T001R300x300M000${data.Fsinger_mid}.jpg?max_age=2592000`} alt=""/>
+                                                                <span>{data.Fsinger_name}</span>
+                                                            </Link>
                                                         </li>
                                                     )
                                                 })
@@ -102,13 +141,18 @@ export default class Singer extends Component {
                         }
 
                     </ul>
-                    <ul className='tag'>
-                        {
-                            this.state.keys.map(item => {
-                                return <li key={item}>{item}</li>;
-                            })
-                        }
-                    </ul>
+                    <div className='tag-box'>
+                        <ul className='tag-list'>
+                            {
+                                this.state.keys.map(item => {
+                                    return (<li key={item}
+                                                data-tag={item}
+                                                onTouchMove={this.touchTo.bind(this)}
+                                                onClick={this.scrollTo.bind(this, '#tag-'+item)}>{item}</li>);
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         )

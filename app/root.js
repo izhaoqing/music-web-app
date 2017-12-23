@@ -7,6 +7,7 @@ import Pubsub from 'pubsub-js';
 import Billboard from "./page/home-page/billboard";
 import Search from './page/home-page/search';
 import Singer from './page/home-page/singer';
+import SingerDetail from './components/singerDetail';
 
 class App extends Component {
     constructor(props) {
@@ -94,6 +95,7 @@ export default class Root extends Component {
                     <Route path='list' component={MusicList}></Route>
                     <Route path='search' component={Search}></Route>
                     <Route path='singer' component={Singer}></Route>
+                    <Route path='singerDetail' component={SingerDetail}></Route>
                 </Route>
             </Router>
         )

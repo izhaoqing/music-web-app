@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MusicListItem from './musicListItem';
 import Header from './header';
 import { getMusicList} from "../api/rank";
+import { getSingerDetail } from "../api/singer";
 import './musicList.less';
 
 export default class MusicList extends Component {
@@ -13,13 +14,24 @@ export default class MusicList extends Component {
         }
     }
     componentDidMount() {
-        getMusicList(this.props.location.query.id).then((res) => {
-            console.log(res);
-            this.setState({
-                musicList: res,
-                isHidden: false
-            })
-        })
+        if (this.props.location.query.type === 'singer') {
+            getSingerDetail(this.props.location.query.id).then(res => {
+                console.log(res);
+                this.setState({
+                    musicList: res,
+                    isHidden: false
+                })
+            });
+        } else {
+            getMusicList(this.props.location.query.id).then((res) => {
+                console.log(res);
+                this.setState({
+                    musicList: res,
+                    isHidden: false
+                })
+            });
+        }
+
     }
     componentWillUnmount() {
 
@@ -31,7 +43,7 @@ export default class MusicList extends Component {
                 <Header title={item.topinfo.ListName} left={'left'}/>
                 <div id="content">
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
-                    <div className={this.state.isHidden ? 'hidden' : 'show'}>
+                    <div className={`${this.state.isHidden ? 'hidden' : 'show'} music-list`}>
                         <div className='top-info' >
                             <img src={item.topinfo.pic_album} alt=""/>
                             <div className='info'>
@@ -42,12 +54,17 @@ export default class MusicList extends Component {
                             <i className="mark filter" style={{backgroundImage:`url(${item.topinfo.pic_album})`}}></i>
                         </div>
                         <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
-                            {item.songlist.map((item) => {
-                                let isFocus = item.id === this.props.currentMusicItem.id;
+                            {item.songlist.map((v) => {
+                                let isFocus = v.id === this.props.currentMusicItem.id;
+                                let musicData = {
+                                    songname: v.data.songname,
+                                    singername: v.data.singer[0].name,
+                                    albumname: v.data.albumdesc
+                                }
                                 return(
                                     <MusicListItem
-                                        key={item.data.songid}
-                                        musicListItem={item}
+                                        key={v.data.songid}
+                                        musicListItem={musicData}
                                         focus={isFocus}
                                     />
                                 )

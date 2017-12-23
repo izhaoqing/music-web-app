@@ -1,4 +1,4 @@
-import jsonp from 'common/js/jsonp'
+import jsonp from '../config/jsonp';
 import {commonParams, options} from './config'
 
 export function getHotKey() {
