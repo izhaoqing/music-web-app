@@ -28,7 +28,7 @@ export default class Search extends Component {
             let searchList = [{
                 type: 'singer',
                 singername: res.data.zhida.singername,
-                singermid: res.data.zhida.singermid || 'no',
+                singermid: res.data.zhida.singermid,
                 singerid: res.data.zhida.singerid
             }];
             for (let i=0; i<list.length; i++) {
@@ -90,10 +90,11 @@ export default class Search extends Component {
                             {
                                 this.state.searchList.map(item => {
                                     if(item.type ==='singer') {
+                                        if(!item.singermid) return false;
                                         return(
                                             <li key={item.singermid}>
                                                 <i className="iconfont icon-geshou"></i>
-                                                <Link to={{pathname:'/singerDetail', query:{id: item.singermid || ''}} }>
+                                                <Link to={{pathname:'/singerDetail', query:{id: item.singermid}} }>
                                                     {item.singername}
                                                 </Link>
                                             </li>
