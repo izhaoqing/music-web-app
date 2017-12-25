@@ -4,9 +4,9 @@ const MUSIC_LIST = [
         name: '天使中的魔鬼',
         singer: '田馥甄',
         // url: 'http://dl.stream.qqmusic.qq.com/C4000047VwdV487b7t.m4a?vkey=15363063E80D9D942C0AF11FF82E9F3EDA3A87A18D4644D79D7B2764DB97021B915D352DA6299965A2C2F271179301F7153A886EFA8647C4&guid=328569683&uin=0&fromtag=66',
-        url: 'http://ws.stream.qqmusic.qq.com/102636799.m4a?fromtag=46',
+        // url: 'http://ws.stream.qqmusic.qq.com/102636799.m4a?fromtag=46',
         // url: 'http://stream17.qqmusic.qq.com/3102636799.mp3',
-        // url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
+        url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
         image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
     }, {
         mid: 2,
