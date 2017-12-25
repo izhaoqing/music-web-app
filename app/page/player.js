@@ -85,14 +85,14 @@ export default class Player extends Component {
     render() {
         return(
             <div className='player wh'>
-                <Header title={this.props.currentMusicItem.title} left={'left'} right={'list'}/>
+                <Header title={this.props.currentMusicItem.name} left={'left'} right={'list'}/>
                 <div className="player-page flex">
                 <div className="cover">
-                    <img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
+                    <img src={this.props.currentMusicItem.image} alt={this.props.currentMusicItem.name}/>
                 </div>
                 <div className="controll-wrapper">
-                    <h2 className="music-title">{this.props.currentMusicItem.title}</h2>
-                    <h3 className="music-artist">{this.props.currentMusicItem.artist}</h3>
+                    <h2 className="music-title">{this.props.currentMusicItem.name}</h2>
+                    <h3 className="music-artist">{this.props.currentMusicItem.singer}</h3>
                     <div className="flex" style={{flexDirection: 'row'}}>
                         <div className="volume-container flex">
                             <i className="icon-volume" style={{marginRight: '.3rem'}}></i>
@@ -100,7 +100,7 @@ export default class Player extends Component {
                                 <Progress
                                     progress={this.state.volume}
                                     onProgressChange={this.changeVolumeHandler}
-                                    barColor='#aaa'
+                                    barColor='#585858'
                                 >
                                 </Progress>
                             </div>
@@ -111,6 +111,7 @@ export default class Player extends Component {
                         <Progress
                             progress={this.state.progress}
                             onProgressChange={this.handlePressChange}
+                            barColor='#585858'
                         >
                         </Progress>
                     </div>
@@ -132,7 +133,7 @@ export default class Player extends Component {
                     </div>
                 </div>
             </div>
-                <div className='filter wh bg-pic' style={{backgroundImage: `url(${this.props.currentMusicItem.cover})`}}></div>
+                <div className='filter wh bg-pic' style={{backgroundImage: `url(${this.props.currentMusicItem.image})`}}></div>
             </div>
         );
     }

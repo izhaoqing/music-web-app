@@ -8,6 +8,7 @@ import Billboard from "./page/home-page/billboard";
 import Search from './page/home-page/search';
 import Singer from './page/home-page/singer';
 import SingerDetail from './components/singerDetail';
+// import getSongUrl from 'config/play_config';
 
 class App extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class App extends Component {
         }
 
         $('#player').jPlayer('setMedia', {
-            mp3: item.file
+            mp3: item.url
         }).jPlayer('play');
     }
     componentDidMount() {
@@ -90,12 +91,13 @@ export default class Root extends Component {
         return(
             <Router history={hashHistory}>
                 <Route path='/' component={App}>
-                    <IndexRoute component={Player}></IndexRoute>
-                    <Route path='billboard' component={Billboard}></Route>
-                    <Route path='list' component={MusicList}></Route>
-                    <Route path='search' component={Search}></Route>
-                    <Route path='singer' component={Singer}></Route>
-                    <Route path='singerDetail' component={SingerDetail}></Route>
+                    <IndexRoute component={Billboard}/>
+                    <Route path='player' components={Player}/>
+                    <Route path='billboard' component={Billboard}/>
+                    <Route path='list' component={MusicList}/>
+                    <Route path='search' component={Search}/>
+                    <Route path='singer' component={Singer}/>
+                    <Route path='singerDetail' component={SingerDetail}/>
                 </Route>
             </Router>
         )

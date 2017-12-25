@@ -6,6 +6,7 @@ export function getLyric(mid) {
 
   const data = Object.assign({}, commonParams, {
     songmid: mid,
+
     platform: 'yqq',
     hostUin: 0,
     needNewCode: 0,

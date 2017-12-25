@@ -132,7 +132,7 @@ body, #root, #root>div, .parent-box, .wh{
     overflow: scroll;
 }
 
-.dn { display: none;}
+.dn { display: none; }
 .db { display: block; }
 .dib { display: inline-block; }
 .hidden { opacity: 0; transition: .1s;}

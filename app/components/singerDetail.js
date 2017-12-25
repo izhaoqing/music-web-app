@@ -41,8 +41,17 @@ export default class SingerDetail extends Component {
                                 let isFocus = v.musicData.songmid === this.props.currentMusicItem.id;
                                 let songData = {
                                     songname: v.musicData.songname,
-                                    singername: item.data.singer_name,
-                                    albumname: v.musicData.albumname
+                                    singername: v.musicData.singer.map(item => item.name).join('/'),
+                                    albumname: v.musicData.albumname,
+                                    songid: v.musicData.songid,
+                                    interval: v.musicData.interval,
+                                    albummid: v.musicData.albummid,
+                                    songmid: v.musicData.songmid
+                                    // title: v.musicData.songname,
+                                    // artist: v.musicData.singer.map(item => item.name).join('/'),
+                                    // id: v.musicData.songmid,
+                                    // cover: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${v.musicData.singer_mid}.jpg?max_age=2592000`,
+                                    // file: `http://dl.stream.qqmusic.qq.com/C400${v.musicData.songmid}.m4a?vkey=F68FC9FEAD9138AF8451F4AEC3491D07D844D402236917923C1AD1D861F851C214606045A156F5DC3ED2319DC79572FE5F36CBBD2DAC06D5&guid=8476550550&uin=0&fromtag=66`
                                 };
                                 return(
                                     <MusicListItem

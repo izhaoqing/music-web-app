@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import ProcessBar from "../../components/process-bar";
 import PageHeader from './page-header';
 import { getHotKey, search } from '../../api/search';
+// import sliderFn from '../../config/slider';
 
 export default class Search extends Component {
     constructor(props) {
@@ -21,8 +22,10 @@ export default class Search extends Component {
             })
         });
     }
-    _search(query) {
-        search(query, 1, 1, 30).then(res => {
+
+    //搜索请求函数
+    _search(query, page) {
+        search(query, page, 1, 30).then(res => {
             if (res.code !== 0) return;
             let list = res.data.song.list;
             let searchList = [{
@@ -38,7 +41,7 @@ export default class Search extends Component {
                     albummid: list[i].albummid,
                     songname: list[i].songname,
                     songmid: list[i].songmid,
-                    singername: list[i].singer[0].name
+                    singername: list[i].singer.map(item => item.name).join('/')
                 });
             }
             this.setState({
@@ -48,13 +51,27 @@ export default class Search extends Component {
             console.log(res);
         });
     }
+
+    //搜索
     handleSearch() {
-        this._search(this.input.value);
+        this._search(this.input.value, 1);
+        // sliderFn(this.parentNode, this.scrollNode, this._loadCb);
     }
+
+    //点击热门搜索
     handleHotSearch(query) {
-        this._search(query);
+        this._search(query, 1);
         this.input.value = query;
     }
+
+    //取消搜索
+    handleCancelSearch() {
+        this.setState({
+            searchListShow: false
+        });
+        this.input.value = '';
+    }
+
     render () {
         return (
             <div className='wh'>
@@ -69,6 +86,9 @@ export default class Search extends Component {
                             <button
                                 onClick={this.handleSearch.bind(this)}
                             ><i className='iconfont icon-sousuo'> </i></button>
+                            <span className={`cancel-btn`}
+                                  onClick={this.handleCancelSearch.bind(this)}
+                                  style={{visibility: `${this.state.searchListShow ? 'visible' : 'hidden'}` }}>&times;</span>
                         </div>
 
                         <div className={`hot-search ${this.state.searchListShow? 'dn' : ''}`}>
@@ -86,32 +106,35 @@ export default class Search extends Component {
                             </ul>
                         </div>
 
-                        <ul className={`result-list wh ${this.state.searchListShow ? '': 'dn'}`}>
-                            {
-                                this.state.searchList.map(item => {
-                                    if(item.type ==='singer') {
-                                        if(!item.singermid) return false;
-                                        return(
-                                            <li key={item.singermid}>
-                                                <i className="iconfont icon-geshou"></i>
-                                                <Link to={{pathname:'/singerDetail', query:{id: item.singermid}} }>
-                                                    {item.singername}
-                                                </Link>
-                                            </li>
-                                        )
-                                    } else {
-                                        return(
-                                            <li key={item.songmid}>
-                                                <i className="iconfont icon-yinle"/>
-                                                <p className='ell' dangerouslySetInnerHTML={{__html: `${item.songname} - ${item.singername}`}}/>
-                                            </li>
-                                        )
-                                    }
+                        <div ref={div => this.parentNode = div}
+                            className={`result-list wh ${this.state.searchListShow ? '': 'dn'}`}>
+                            <ul ref={ul => this.scrollNode = ul}>
+                                {
+                                    this.state.searchList.map(item => {
+                                        if(item.type ==='singer') {
+                                            if(!item.singermid) return false;
+                                            return(
+                                                <li key={item.singermid}>
+                                                    <i className="iconfont icon-geshou"></i>
+                                                    <Link to={{pathname:'/singerDetail', query:{id: item.singermid}} }>
+                                                        {item.singername}
+                                                    </Link>
+                                                </li>
+                                            )
+                                        } else {
+                                            return(
+                                                <li key={item.songmid}>
+                                                    <i className="iconfont icon-yinle"/>
+                                                    <p className='ell' dangerouslySetInnerHTML={{__html: `${item.songname} - ${item.singername}`}}/>
+                                                </li>
+                                            )
+                                        }
 
-                                })
-                            }
+                                    })
+                                }
+                            </ul>
 
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -51,15 +51,19 @@ export default class MusicList extends Component {
                                 <p>第{item.day_of_year || 1}天</p>
                                 <p>更新时间：{item.update_time}</p>
                             </div>
-                            <i className="mark filter" style={{backgroundImage:`url(${item.topinfo.pic_album})`}}></i>
+                            <i className="mark filter" style={{backgroundImage:`url(${item.topinfo.pic_album})`}}/>
                         </div>
                         <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
                             {item.songlist.map((v) => {
                                 let isFocus = v.id === this.props.currentMusicItem.id;
                                 let musicData = {
                                     songname: v.data.songname,
-                                    singername: v.data.singer[0].name,
-                                    albumname: v.data.albumdesc
+                                    singername: v.data.singer.map(item => item.name).join('/'),
+                                    albumname: v.data.albumname,
+                                    songid: v.data.songid,
+                                    interval: v.data.interval,
+                                    albummid: v.data.albummid,
+                                    songmid: v.data.songmid,
                                 }
                                 return(
                                     <MusicListItem
