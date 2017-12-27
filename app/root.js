@@ -8,7 +8,8 @@ import Billboard from "./page/home-page/billboard";
 import Search from './page/home-page/search';
 import Singer from './page/home-page/singer';
 import SingerDetail from './components/singerDetail';
-// import getSongUrl from 'config/play_config';
+// import getSongUrl from './config/play_config';
+import getOptions from './config/music_url';
 
 class App extends Component {
     constructor(props) {
@@ -19,34 +20,39 @@ class App extends Component {
             isPlay: true
         };
     }
-    playMusic(item) {
-        let changeMusic = false;
+    playMusic(type) {
+        let item = {};
+        let changeMusic = true;
         let index = MUSIC_LIST.indexOf(this.state.currentMusicItem);
-        if (item === 'prev') {
+        if (type === 'prev') {
             index = (index - 1) < 0 ? MUSIC_LIST.length-1 : index-1;
-        } else if (item === 'next') {
+        } else if (type === 'next') {
             index = (index + 1) >= MUSIC_LIST.length ? 0 : index+1;
         } else {
-            changeMusic = true;
-        }
-        if (!changeMusic) {
-            item = MUSIC_LIST[index];
-            this.setState({
-                currentMusicItem: MUSIC_LIST[index],
-                isPlay: true
-            });
+            changeMusic = false;
         }
 
-        $('#player').jPlayer('setMedia', {
-            mp3: item.url
-        }).jPlayer('play');
+        if (!changeMusic) return false;
+        item = MUSIC_LIST[index];
+
+        this.setState({
+            currentMusicItem: MUSIC_LIST[index],
+            isPlay: true
+        });
+
+        getOptions(item.mid, url => {
+            if (!url) return false;
+            $('#player').jPlayer('setMedia', {
+                mp3: url
+            }).jPlayer('play');
+        });
     }
     componentDidMount() {
         $('#player').jPlayer({
             supplied: 'mp3',
             wmode: 'window'
         });
-        this.playMusic(this.state.currentMusicItem);
+        // this.playMusic(this.state.currentMusicItem);
         Pubsub.subscribe('PLAY_MUSIC', (msg, musicItem) => {
             this.playMusic(musicItem);
             this.setState({

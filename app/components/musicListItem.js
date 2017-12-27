@@ -7,8 +7,9 @@ import { createSong } from "../config/song";
 export default class MusicListItem extends Component {
     playMusic(item) {
         MUSIC_LIST.push(createSong(item));
+        window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
         Pubsub.publish('PLAY_MUSIC', createSong(item));
-        console.log(createSong(item));
+        // console.log(createSong(item));
     }
     componentDidMount() {
         // console.log(createSong(this.props.musicListItem));
