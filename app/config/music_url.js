@@ -11,6 +11,7 @@ export default function getOptions (musicId, cb) {
         },
         error: function (res) {
             console.log(res);
+            cb && cb('');
         }
     });
 }

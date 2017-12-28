@@ -6,9 +6,16 @@ import { createSong } from "../config/song";
 
 export default class MusicListItem extends Component {
     playMusic(item) {
-        MUSIC_LIST.push(createSong(item));
+        let musicItem = createSong(item);
+        Pubsub.publish('PLAY_MUSIC', musicItem);
+        for (let i=0; i<musicItem.length; i++) {
+            if(musicItem[i].mid === musicItem.mid) {
+                return false;
+            }
+        }
+        MUSIC_LIST.push(musicItem);
         window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
-        Pubsub.publish('PLAY_MUSIC', createSong(item));
+
         // console.log(createSong(item));
     }
     componentDidMount() {

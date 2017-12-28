@@ -13,21 +13,51 @@ export default class Search extends Component {
             hotKeys: [],
             searchList: [],
             searchListShow: false
-        }
+        };
+        this.page = 1;  //页码
+        this.query = '';  //搜索关键词
+        this.resultData = [];  //搜索结果
+        this.stopSearch = false; //是否停止搜索;
     }
     componentDidMount() {
+        //获取热门搜索
         getHotKey().then(res => {
             this.setState({
                 hotKeys: res.data.hotkey.slice(0,10),
             })
         });
+
+        //scroll事件
+        this.refs.resultList.addEventListener('scroll', () => {
+            let boxH = this.refs.resultList.clientHeight;   //父级高度
+            let slientH = this.refs.resultUl.clientHeight;  //ul的高度
+            let scrollTop = this.refs.resultList.scrollTop; //滚动条top
+            console.log(boxH+scrollTop, slientH);
+            if (boxH+scrollTop === slientH) {
+                if(this.stopSearch) return false;
+                this.page++;
+                this._search(this.query, this.page);
+            }
+        })
     }
 
     //搜索请求函数
     _search(query, page) {
         search(query, page, 1, 30).then(res => {
             if (res.code !== 0) return;
-            let list = res.data.song.list;
+
+            if(page === 1) {
+                this.resultData = [];
+                this.stopSearch = false;
+            }
+
+            if (res.data.song.list && res.data.song.list.length < 30) {
+                this.stopSearch = true;
+            }
+
+            this.resultData = [...this.resultData, ...res.data.song.list];
+            let list = this.resultData;
+
             let searchList = [{
                 type: 'singer',
                 singername: res.data.zhida.singername,
@@ -55,6 +85,7 @@ export default class Search extends Component {
     //搜索
     handleSearch() {
         this._search(this.input.value, 1);
+        this.query = this.input.value;
         // sliderFn(this.parentNode, this.scrollNode, this._loadCb);
     }
 
@@ -62,6 +93,7 @@ export default class Search extends Component {
     handleHotSearch(query) {
         this._search(query, 1);
         this.input.value = query;
+        this.query = query;
     }
 
     //取消搜索
@@ -106,9 +138,9 @@ export default class Search extends Component {
                             </ul>
                         </div>
 
-                        <div ref={div => this.parentNode = div}
+                        <div ref='resultList'
                             className={`result-list wh ${this.state.searchListShow ? '': 'dn'}`}>
-                            <ul ref={ul => this.scrollNode = ul}>
+                            <ul ref='resultUl'>
                                 {
                                     this.state.searchList.map(item => {
                                         if(item.type ==='singer') {
@@ -133,7 +165,6 @@ export default class Search extends Component {
                                     })
                                 }
                             </ul>
-
                         </div>
                     </div>
                 </div>
