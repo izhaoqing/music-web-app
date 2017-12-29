@@ -5,6 +5,8 @@ import ProcessBar from "../../components/process-bar";
 import PageHeader from './page-header';
 import { getHotKey, search } from '../../api/search';
 // import sliderFn from '../../config/slider';
+import { createSong } from "../../config/song";
+import MUSIC_LIST from '../../config/musicList';
 
 export default class Search extends Component {
     constructor(props) {
@@ -18,6 +20,7 @@ export default class Search extends Component {
         this.query = '';  //搜索关键词
         this.resultData = [];  //搜索结果
         this.stopSearch = false; //是否停止搜索;
+        this.loading = true;  //正在加载；
     }
     componentDidMount() {
         //获取热门搜索
@@ -29,16 +32,27 @@ export default class Search extends Component {
 
         //scroll事件
         this.refs.resultList.addEventListener('scroll', () => {
-            let boxH = this.refs.resultList.clientHeight;   //父级高度
-            let slientH = this.refs.resultUl.clientHeight;  //ul的高度
-            let scrollTop = this.refs.resultList.scrollTop; //滚动条top
-            console.log(boxH+scrollTop, slientH);
-            if (boxH+scrollTop === slientH) {
-                if(this.stopSearch) return false;
-                this.page++;
-                this._search(this.query, this.page);
-            }
+            this._scrollFn();
         })
+    }
+
+    componentWillUnmount() {
+        this.refs.resultList.removeEventListener('scroll', () => {
+            this._scrollFn();
+        });
+    }
+
+    //滚动事件函数
+    _scrollFn() {
+        let boxH = this.refs.resultList.clientHeight;   //父级高度
+        let slientH = this.refs.resultUl.clientHeight;  //ul的高度
+        let scrollTop = this.refs.resultList.scrollTop; //滚动条top
+        console.log(boxH+scrollTop, slientH);
+        if (boxH+scrollTop === slientH) {
+            if(this.stopSearch || this.loading) return false;
+            this.page++;
+            this._search(this.query, this.page);
+        }
     }
 
     //搜索请求函数
@@ -67,6 +81,8 @@ export default class Search extends Component {
             for (let i=0; i<list.length; i++) {
                 searchList.push({
                     type: 'song',
+                    songid: list[i].songid,
+                    duration: list[i].duration,
                     albumname: list[i].albumname,
                     albummid: list[i].albummid,
                     songname: list[i].songname,
@@ -74,11 +90,15 @@ export default class Search extends Component {
                     singername: list[i].singer.map(item => item.name).join('/')
                 });
             }
+
             this.setState({
                 searchList,
                 searchListShow: true
             });
-            console.log(res);
+
+            console.log(res.data.list);
+
+            this.loading = false;
         });
     }
 
@@ -102,6 +122,30 @@ export default class Search extends Component {
             searchListShow: false
         });
         this.input.value = '';
+    }
+
+    //播放音乐
+    handlePlay(mid) {
+        let list = this.resultData;
+        for (let i=0; i<list.length; i++) {
+            if(list.songmid === mid) {
+                play(list);
+            }
+        }
+
+        function play(item) {
+            let musicItem = createSong(item);
+            Pubsub.publish('PLAY_MUSIC', musicItem);
+            for (let i=0; i<MUSIC_LIST.length; i++) {
+                return (function () {
+                    if(MUSIC_LIST[i].mid === musicItem.mid) {
+                        return false;
+                    }
+                })();
+            }
+            MUSIC_LIST.push(musicItem);
+            window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
+        }
     }
 
     render () {
@@ -155,7 +199,7 @@ export default class Search extends Component {
                                             )
                                         } else {
                                             return(
-                                                <li key={item.songmid}>
+                                                <li key={item.songmid} onClick={this.handlePlay.bind(this, item.songmid)}>
                                                     <i className="iconfont icon-yinle"/>
                                                     <p className='ell' dangerouslySetInnerHTML={{__html: `${item.songname} - ${item.singername}`}}/>
                                                 </li>

@@ -20,8 +20,8 @@ class App extends Component {
             isPlay: true
         };
     }
-    playMusic(type) {
-        let item = {};
+    //切换音乐
+    changeMusic(type) {
         let changeMusic = true;
         let index = MUSIC_LIST.indexOf(this.state.currentMusicItem);
         if (type === 'prev') {
@@ -33,20 +33,54 @@ class App extends Component {
         }
 
         if (!changeMusic) return false;
-        item = MUSIC_LIST[index];
+        let item = MUSIC_LIST[index];
 
-        this.setState({
-            currentMusicItem: MUSIC_LIST[index],
-            isPlay: true
-        });
+        if(this._noMusic(item)) {
+            this._play(item);
+        }
+    }
 
-        getOptions(item.mid, url => {
-            if (!url) return false;
+    //播放音乐事件函数
+    playMusic(musicItem) {
+        if(this._noMusic(musicItem)) {
+            this._play(musicItem);
+        }
+    }
+
+    //播放音乐
+    _play(musicItem) {
+        console.log(musicItem);
+        let isPlay = true;
+        getOptions(musicItem.mid, url => {
+            if (!url) {
+                $('#player').jPlayer('stop');
+                isPlay = false;
+                return false;
+            }
+            this.setState({
+                currentMusicItem: musicItem,
+                isPlay: isPlay
+            });
             $('#player').jPlayer('setMedia', {
                 mp3: url
             }).jPlayer('play');
         });
     }
+
+    //没有音乐显示默认背景
+    _noMusic(musicItem) {
+        let result = true;
+        if(musicItem.type === 'nomusic') {
+            $('#player').jPlayer('stop');
+            this.setState({
+                currentMusicItem: musicItem,
+                isPlay: false
+            });
+            result = false;
+        }
+        return result;
+    }
+
     componentDidMount() {
         $('#player').jPlayer({
             supplied: 'mp3',
@@ -67,10 +101,10 @@ class App extends Component {
             });
         });
         Pubsub.subscribe('PREV_MUSIC', () => {
-            this.playMusic('prev');
+            this.changeMusic('prev');
         });
         Pubsub.subscribe('NEXT_MUSIC', () => {
-            this.playMusic('next');
+            this.changeMusic('next');
         });
         Pubsub.subscribe('THIS_MUSIC', () => {
             this.playMusic(this.state.currentMusicItem);

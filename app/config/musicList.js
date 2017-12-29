@@ -1,11 +1,11 @@
 let MUSIC_LIST = [
-    {
-        mid: '',
-        name: 'Music Player',
-        singer: '',
-        url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%A3%8E%E7%BB%A7%E7%BB%AD%E5%90%B9.mp3',
-        image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
-    }
+    // {
+    //     mid: '',
+    //     name: 'Music Player',
+    //     singer: '',
+    //     url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%A3%8E%E7%BB%A7%E7%BB%AD%E5%90%B9.mp3',
+    //     image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
+    // }
     // {
     //     mid: 1,
     //     name: '天使中的魔鬼',
@@ -51,7 +51,19 @@ let MUSIC_LIST = [
 ];
 
 let storage = window.localStorage.getItem('music_list');
+window.localStorage.clear();
 MUSIC_LIST = storage ? JSON.parse(storage) : MUSIC_LIST;
+
+if(MUSIC_LIST.length === 0) {
+    MUSIC_LIST = [{
+        type: 'nomusic',
+        mid: '',
+        name: 'Music Player',
+        singer: '',
+        url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%A3%8E%E7%BB%A7%E7%BB%AD%E5%90%B9.mp3',
+        image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
+    }]
+}
 
 console.log(MUSIC_LIST);
 

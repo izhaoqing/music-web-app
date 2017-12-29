@@ -8,10 +8,12 @@ export default class MusicListItem extends Component {
     playMusic(item) {
         let musicItem = createSong(item);
         Pubsub.publish('PLAY_MUSIC', musicItem);
-        for (let i=0; i<musicItem.length; i++) {
-            if(musicItem[i].mid === musicItem.mid) {
-                return false;
-            }
+        for (let i=0; i<MUSIC_LIST.length; i++) {
+            return (function () {
+                if(MUSIC_LIST[i].mid === musicItem.mid) {
+                    return false;
+                }
+            })();
         }
         MUSIC_LIST.push(musicItem);
         window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
