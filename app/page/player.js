@@ -12,13 +12,12 @@ export default class Player extends Component {
         this.state = {
             progress: 0,
             volume: 0,
-            isPlay: this.props.currentMusicItem.type ==='nomusic' ? false : this.props.isPlay,
+            isPlay: this.props.isPlay,
             left: '',
             repeatOnce: false
         };
     }
     componentDidMount() {
-        console.log(this.props.currentMusicItem);
         $('#player').bind($.jPlayer.event.timeupdate, (e) => {
             duration = e.jPlayer.status.duration;
             this.setState({
@@ -35,6 +34,7 @@ export default class Player extends Component {
         this.setState({
             isPlay: this.props.isPlay
         });
+        console.log(this.props.isPlay);
     }
     componentWillUnmount() {
         $('#player').unbind($.jPlayer.event.timeupdate);

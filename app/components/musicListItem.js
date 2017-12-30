@@ -8,16 +8,18 @@ export default class MusicListItem extends Component {
     playMusic(item) {
         let musicItem = createSong(item);
         Pubsub.publish('PLAY_MUSIC', musicItem);
-        for (let i=0; i<MUSIC_LIST.length; i++) {
-            return (function () {
-                if(MUSIC_LIST[i].mid === musicItem.mid) {
-                    return false;
-                }
-            })();
-        }
-        MUSIC_LIST.push(musicItem);
-        window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
 
+        let isRepeat = false;
+        for (let i=0; i<MUSIC_LIST.length; i++) {
+            if(MUSIC_LIST[i].mid === musicItem.mid) {
+                isRepeat = true;
+            }
+        }
+
+        if(!isRepeat) {
+            MUSIC_LIST.push(musicItem);
+            window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
+        }
         // console.log(createSong(item));
     }
     componentDidMount() {

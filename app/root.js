@@ -11,18 +11,28 @@ import SingerDetail from './components/singerDetail';
 // import getSongUrl from './config/play_config';
 import getOptions from './config/music_url';
 
+let noMusci = {
+    type: 'nomusic',
+    mid: '',
+    name: 'Music Player',
+    singer: '',
+    url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%A3%8E%E7%BB%A7%E7%BB%AD%E5%90%B9.mp3',
+    image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
+};
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMusicItem: MUSIC_LIST[0],
+            currentMusicItem: MUSIC_LIST[0] || noMusci,
             musicList: MUSIC_LIST,
-            isPlay: true
+            isPlay: false
         };
     }
     //切换音乐
     changeMusic(type) {
         let changeMusic = true;
+        if (MUSIC_LIST.length === 0) return false;
         let index = MUSIC_LIST.indexOf(this.state.currentMusicItem);
         if (type === 'prev') {
             index = (index - 1) < 0 ? MUSIC_LIST.length-1 : index-1;
@@ -34,6 +44,8 @@ class App extends Component {
 
         if (!changeMusic) return false;
         let item = MUSIC_LIST[index];
+
+        console.log(MUSIC_LIST);
 
         if(this._noMusic(item)) {
             this._play(item);
@@ -49,7 +61,6 @@ class App extends Component {
 
     //播放音乐
     _play(musicItem) {
-        console.log(musicItem);
         let isPlay = true;
         getOptions(musicItem.mid, url => {
             if (!url) {
@@ -61,6 +72,7 @@ class App extends Component {
                 currentMusicItem: musicItem,
                 isPlay: isPlay
             });
+            console.log(this.state.isPlay);
             $('#player').jPlayer('setMedia', {
                 mp3: url
             }).jPlayer('play');
@@ -86,7 +98,15 @@ class App extends Component {
             supplied: 'mp3',
             wmode: 'window'
         });
-        // this.playMusic(this.state.currentMusicItem);
+
+        if(this.state.currentMusicItem.type !== 'nomusic') {
+            getOptions(this.state.currentMusicItem.mid, url => {
+                $('#player').jPlayer('setMedia', {
+                    mp3: url
+                }).jPlayer('pause');
+            });
+        }
+
         Pubsub.subscribe('PLAY_MUSIC', (msg, musicItem) => {
             this.playMusic(musicItem);
             this.setState({
