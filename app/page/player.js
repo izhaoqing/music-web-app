@@ -92,7 +92,7 @@ export default class Player extends Component {
                 </div>
                 <div className="controll-wrapper">
                     <h2 className="music-title">{this.props.currentMusicItem.name}</h2>
-                    <h3 className="music-artist">{this.props.currentMusicItem.singer}{this.props.isPlay + ''}</h3>
+                    <h3 className="music-artist">{this.props.currentMusicItem.singer}</h3>
                     <div className="flex" style={{flexDirection: 'row'}}>
                         <div className="volume-container flex">
                             <i className="icon-volume" style={{marginRight: '.3rem'}}> </i>
