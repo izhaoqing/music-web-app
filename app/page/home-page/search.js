@@ -5,6 +5,7 @@ import ProcessBar from "../../components/process-bar";
 import PageHeader from './page-header';
 import { getHotKey, search } from '../../api/search';
 // import sliderFn from '../../config/slider';
+import Pubsub from 'pubsub-js';
 import { createSong } from "../../config/song";
 import MUSIC_LIST from '../../config/musicList';
 
@@ -58,6 +59,7 @@ export default class Search extends Component {
     //搜索请求函数
     _search(query, page) {
         search(query, page, 1, 30).then(res => {
+            console.log(res);
             if (res.code !== 0) return;
 
             if(page === 1) {
@@ -96,7 +98,7 @@ export default class Search extends Component {
                 searchListShow: true
             });
 
-            console.log(res.data.list);
+            console.log(searchList);
 
             this.loading = false;
         });
@@ -128,23 +130,27 @@ export default class Search extends Component {
     handlePlay(mid) {
         let list = this.resultData;
         for (let i=0; i<list.length; i++) {
-            if(list.songmid === mid) {
-                play(list);
+            // console.log()
+            if(list[i].songmid === mid) {
+                play(list[i]);
             }
         }
 
         function play(item) {
             let musicItem = createSong(item);
             Pubsub.publish('PLAY_MUSIC', musicItem);
+
+            let isRepeat = false;
             for (let i=0; i<MUSIC_LIST.length; i++) {
-                return (function () {
-                    if(MUSIC_LIST[i].mid === musicItem.mid) {
-                        return false;
-                    }
-                })();
+                if(MUSIC_LIST[i].mid === musicItem.mid) {
+                    isRepeat = true;
+                }
             }
-            MUSIC_LIST.push(musicItem);
-            window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
+
+            if(!isRepeat) {
+                MUSIC_LIST.push(musicItem);
+                window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
+            }
         }
     }
 

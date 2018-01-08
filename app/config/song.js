@@ -2,7 +2,7 @@ import {getLyric} from '../api/song';
 import {ERR_OK} from '../api/config';
 import {Base64} from 'js-base64';
 
-export default class Song {
+class Song {
     constructor({id, mid, singer, name, album, duration, image, url}) {
         this.id = id;
         this.mid = mid;
