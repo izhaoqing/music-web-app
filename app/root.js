@@ -8,6 +8,7 @@ import Billboard from "./page/home-page/billboard";
 import Search from './page/home-page/search';
 import Singer from './page/home-page/singer';
 import SingerDetail from './components/singerDetail';
+import Recommend from './page/home-page/recommend.js';
 // import getSongUrl from './config/play_config';
 import getOptions from './config/music_url';
 
@@ -158,6 +159,7 @@ export default class Root extends Component {
                     <Route path='search' component={Search}/>
                     <Route path='singer' component={Singer}/>
                     <Route path='singerDetail' component={SingerDetail}/>
+                    <Route path='recommend' component={Recommend} />
                 </Route>
             </Router>
         )

@@ -3,6 +3,7 @@ import MusicListItem from './musicListItem';
 import Header from './header';
 import { getMusicList} from "../api/rank";
 import { getSingerDetail } from "../api/singer";
+import { getSongList } from '../api/recommend';
 import './musicList.less';
 
 export default class MusicList extends Component {
@@ -22,6 +23,11 @@ export default class MusicList extends Component {
                     isHidden: false
                 })
             });
+        } else if(this.props.location.query.type === 'recommend') {
+            console.log(this.props.location.query.dissid)
+            getSongList(this.props.location.query.dissid).then(res => {
+                console.log(res);
+            })
         } else {
             getMusicList(this.props.location.query.id).then((res) => {
                 console.log(res);

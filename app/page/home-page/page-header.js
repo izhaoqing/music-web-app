@@ -17,8 +17,8 @@ export default class PageHeader extends Component {
             <div className='page-header'>
                 <Header title={'Music Player'}/>
                 <ul className='list flex'>
-                    <li className={active === '1' ? 'active' : ''}>
-                        推荐
+                    <li className={active === 'recommend' ? 'active' : ''}>
+                        <Link to='/recommend'>推荐</Link>
                     </li>
                     <li className={active === 'singer' ? 'active' : ''}>
                         <Link to='/singer'>歌手</Link>
