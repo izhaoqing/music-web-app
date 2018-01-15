@@ -28,7 +28,7 @@ export default class Billboard extends Component {
             <div className='parent-box'>
                 {/*<Header title='榜单' left={'left'}/>*/}
                 <PageHeader active='billboard'/>
-                <ProcessBar/>
+                <ProcessBar currentMusicItem={this.props.currentMusicItem} />
                 <div id={'content'}>
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div style={{padding: `0 0 .5rem`}} className={this.state.isHidden ? 'hidden' : 'show'}>
@@ -43,7 +43,7 @@ export default class Billboard extends Component {
                                                     {
                                                         item.songList.map((item)=>{
                                                             return (
-                                                                <li className={'ell'} key={item.songname}>{item.songname} <span style={{color: '#999'}}>-{item.singername}</span></li>
+                                                                <li className={'ell'} key={item.songname+ item.singername}>{item.songname} <span style={{color: '#999'}}>-{item.singername}</span></li>
                                                             )
                                                         })
                                                     }

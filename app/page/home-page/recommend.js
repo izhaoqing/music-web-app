@@ -62,8 +62,13 @@ export default class Recommend extends Component {
                 <div id="content">
                     <div className="recommend">
                         <div className="banner">
-
+                            <ul>
+                                <li>
+                                    <img src="http://y.gtimg.cn/music/photo_new/T003R720x288M000003cGnPl1BLnCv.jpg" alt=""/>
+                                </li>
+                            </ul>
                         </div>
+                        <h2>热门歌单</h2>
                         <ul className="rec-wrap">
                             {
                                 data.map(item => {
