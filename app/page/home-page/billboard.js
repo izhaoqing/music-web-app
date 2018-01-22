@@ -36,7 +36,7 @@ export default class Billboard extends Component {
                             this.state.topList.map((item)=> {
                                 return (
                                     <Link to={{pathname:"/list", query:{id: item.id}, state:{}  }} key={item.id}>
-                                        <div style={{margin: '.5rem .5rem 0'}}>
+                                        <div style={{margin: '.5rem 0 0 .5rem'}}>
                                             <div className='bill-wrap'>
                                                 <div className='title' style={{backgroundImage: `url(${item.picUrl})`}}></div>
                                                 <ul className='bill-list ell'>

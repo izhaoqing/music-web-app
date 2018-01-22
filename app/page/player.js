@@ -83,7 +83,7 @@ export default class Player extends Component {
     render() {
         return(
             <div className='player wh'>
-                <Header title={this.props.currentMusicItem.name} left={'left'} right={'list'}/>
+                <Header title={this.props.currentMusicItem.name} left={'left'}/>
                 <div className="player-page flex">
                 <div className="cover">
                     <img src={this.props.currentMusicItem.image} alt={this.props.currentMusicItem.name}/>
