@@ -3,6 +3,7 @@ import PageHeader from './page-header';
 import {Link} from 'react-router';
 import { getDiscList } from '../../api/recommend';
 import './recommend.less';
+import ProcessBar from '../../components/process-bar';
 
 const data = [
     {
@@ -59,6 +60,7 @@ export default class Recommend extends Component {
         return(
             <div>
                 <PageHeader active='recommend'/>
+                <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
                 <div id="content">
                     <div className="recommend">
                         <div className="banner">

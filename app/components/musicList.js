@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MusicListItem from './musicListItem';
 import Header from './header';
+import ProcessBar from './process-bar';
 import { getMusicList} from "../api/rank";
 import { getSingerDetail } from "../api/singer";
 import { getSongList } from '../api/recommend';
@@ -47,6 +48,7 @@ export default class MusicList extends Component {
         return(
             <div>
                 <Header title={item.topinfo.ListName} left={'left'}/>
+                <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
                 <div id="content">
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div className={`${this.state.isHidden ? 'hidden' : 'show'} music-list`}>

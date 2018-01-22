@@ -130,6 +130,19 @@ class App extends Component {
         Pubsub.subscribe('THIS_MUSIC', () => {
             this.playMusic(this.state.currentMusicItem);
         });
+        Pubsub.subscribe('PLAY', () => {
+            console.log('paly')
+            $('#player').jPlayer('play');
+            this.setState({
+                isPlay: !this.state.isPlay
+            });
+        });
+        Pubsub.subscribe('PARSE', () => {
+            $('#player').jPlayer('pause');
+            this.setState({
+                isPlay: !this.state.isPlay
+            });
+        });
     }
     componentWillUnmount() {
         Pubsub.unsubscribe('PLAY_MUSIC');
@@ -137,6 +150,8 @@ class App extends Component {
         Pubsub.unsubscribe('PREV_MUSIC');
         Pubsub.unsubscribe('NEXT_MUSIC');
         Pubsub.unsubscribe('THIS_MUSIC');
+        Pubsub.unsubscribe('PLAY');
+        Pubsub.unsubscribe('PARSE');
     }
     render() {
         return(
@@ -152,7 +167,7 @@ export default class Root extends Component {
         return(
             <Router history={hashHistory}>
                 <Route path='/' component={App}>
-                    <IndexRoute component={Billboard}/>
+                    <IndexRoute component={Recommend}/>
                     <Route path='player' components={Player}/>
                     <Route path='billboard' component={Billboard}/>
                     <Route path='list' component={MusicList}/>

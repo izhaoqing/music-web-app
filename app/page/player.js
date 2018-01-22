@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Progress from '../components/progress';
 import './player.less';
 import Pubsub from 'pubsub-js';
-import Header from '../components/header'
+import Header from '../components/header';
 
 let duration = 0;
 
@@ -12,7 +12,6 @@ export default class Player extends Component {
         this.state = {
             progress: 0,
             volume: 0,
-            isPlay: this.props.isPlay,
             left: '',
             repeatOnce: false
         };
@@ -30,11 +29,7 @@ export default class Player extends Component {
             }
         });
     }
-    componentWillReceiveProps (next) {
-        this.setState({
-            isPlay: next.isPlay
-        });
-    }
+
     componentWillUnmount() {
         $('#player').unbind($.jPlayer.event.timeupdate);
     }
@@ -45,14 +40,11 @@ export default class Player extends Component {
         $('#player').jPlayer('volume', progress);
     }
     play() {
-        if (this.state.isPlay) {
-            $('#player').jPlayer('pause');
+        if (this.props.isPlay) {
+            this.parseMusic();
         } else {
-            $('#player').jPlayer('play');
+            this.playMusic();
         }
-        this.setState({
-            isPlay: !this.state.isPlay
-        });
     }
     prevMusic() {
         Pubsub.publish('PREV_MUSIC');
@@ -62,6 +54,12 @@ export default class Player extends Component {
     }
     playThisMusic() {
         Pubsub.publish('THIS_MUSIC');
+    }
+    playMusic() {
+        Pubsub.publish('PLAY');
+    }
+    parseMusic() {
+        Pubsub.publish('PARSE');
     }
     formatTime(item) {
         let min = Math.round(item/60);
@@ -118,7 +116,7 @@ export default class Player extends Component {
                     <div className="flex" style={{flexDirection: 'row', justifyContent: 'space-between', position: 'relative', alignItems:'center', height:'2rem'}}>
                         <div className='w100p flex set-icon'>
                             <i className="iconfont icon-fanhui1 prev" onClick={this.prevMusic}/>
-                            <i className={`iconfont change ${!this.state.isPlay ? 'icon-bofang pause' : 'icon-zanting play'}`}
+                            <i className={`iconfont change ${!this.props.isPlay ? 'icon-bofang pause' : 'icon-zanting play'}`}
                                onClick={this.play.bind(this)} />
                             <i className="next iconfont icon-fanhui1-copy" onClick={this.nextMusic}/>
                         </div>

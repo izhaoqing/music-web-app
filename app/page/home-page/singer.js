@@ -112,7 +112,7 @@ export default class Singer extends Component {
         return (
             <div className='wh'>
                 <PageHeader active='singer'/>
-                <ProcessBar/>
+                <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
                 <div id={'content'} className='singer-page'>
                     <ul className='wh'>
                         {
