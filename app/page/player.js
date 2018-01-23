@@ -86,7 +86,11 @@ export default class Player extends Component {
                 <Header title={this.props.currentMusicItem.name} left={'left'}/>
                 <div className="player-page flex">
                 <div className="cover">
-                    <img src={this.props.currentMusicItem.image} alt={this.props.currentMusicItem.name}/>
+                    {
+                        this.props.currentMusicItem.image
+                            ? <img src={this.props.currentMusicItem.image} alt={this.props.currentMusicItem.name}/>
+                            :<img src="../../static/images/logo1.png" alt=""/>
+                    }
                 </div>
                 <div className="controll-wrapper">
                     <h2 className="music-title">{this.props.currentMusicItem.name}</h2>
@@ -127,7 +131,11 @@ export default class Player extends Component {
                     </div>
                 </div>
             </div>
-                <div className='filter wh bg-pic' style={{backgroundImage: `url(${this.props.currentMusicItem.image})`}}> </div>
+                {
+                    this.props.currentMusicItem.image
+                        ? <div className='filter wh bg-pic' style={{backgroundImage: `url(${this.props.currentMusicItem.image})`}}> </div>
+                        : <div className='filter wh bg-pic'> </div>
+                }
             </div>
         );
     }

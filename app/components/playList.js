@@ -45,11 +45,10 @@ export default class PlayList extends Component {
         let item = this.state.musicList;
         return(
             <div>
-                <Header title={item.topinfo.ListName} left={'left'}/>
+                <Header title={'播放列表'} left={'left'}/>
                 <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
                 <div id="content">
-                    <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
-                    <div className={`${this.state.isHidden ? 'hidden' : 'show'} music-list`}>
+                    <div className={`music-list`}>
                         <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
                             {MUSIC_LIST.map(item => {
                                 <MusicListItem

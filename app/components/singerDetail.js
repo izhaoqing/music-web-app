@@ -36,7 +36,11 @@ export default class SingerDetail extends Component {
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div className={this.state.isHidden ? 'hidden' : 'show'}>
                         <div className='top-info' >
-                            <img src={`https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.data.singer_mid}.jpg?max_age=2592000`} alt=""/>
+                            {
+                                item.data.singer_mid
+                                    ? <img src={`https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.data.singer_mid}.jpg?max_age=2592000`} alt=""/>
+                                    : <img src={``} alt=""/>
+                            }
                         </div>
                         <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
                             {item.data.list.map((v) => {
