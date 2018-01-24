@@ -11,6 +11,7 @@ import SingerDetail from './components/singerDetail';
 import Recommend from './page/home-page/recommend.js';
 // import getSongUrl from './config/play_config';
 import getOptions from './config/music_url';
+import PlayList from './components/playList';
 
 let noMusci = {
     type: 'nomusic',
@@ -18,7 +19,7 @@ let noMusci = {
     name: 'Music Player',
     singer: '',
     url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%A3%8E%E7%BB%A7%E7%BB%AD%E5%90%B9.mp3',
-    image: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.jpg'
+    image: ''
 };
 
 class App extends Component {
@@ -175,6 +176,7 @@ export default class Root extends Component {
                     <Route path='singer' component={Singer}/>
                     <Route path='singerDetail' component={SingerDetail}/>
                     <Route path='recommend' component={Recommend} />
+                    <Route path='playList' component={PlayList} />
                 </Route>
             </Router>
         )

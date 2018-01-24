@@ -158,7 +158,10 @@ export default class Search extends Component {
         return (
             <div className='wh'>
                 <PageHeader active='search'/>
-                <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
+                {
+                    this.props.currentMusicItem.type === 'nomusic'
+                        ? '' : <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
+                }
                 <div id={'content'}>
                     <div className='search-page wh'>
                         <div className="input-box">

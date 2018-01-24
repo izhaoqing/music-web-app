@@ -31,7 +31,10 @@ export default class SingerDetail extends Component {
         return (
             <div className='singer-detail'>
                 <Header title={item.data.singer_name} left={'left'}/>
-                <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
+                {
+                    this.props.currentMusicItem.type === 'nomusic'
+                        ? '' : <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
+                }
                 <div id="content">
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div className={this.state.isHidden ? 'hidden' : 'show'}>

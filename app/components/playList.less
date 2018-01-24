@@ -1,0 +1,33 @@
+.play-list {
+  .list-item {
+    padding: .5rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: .85rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      color: #999;
+      font-size: .75rem;
+      margin-top: .1rem;
+    }
+    i {
+      padding: .3rem;
+      position: relative;
+      right: -.3rem;
+      color: #666;
+    }
+  }
+
+  .item-info {
+    flex-grow: 1;
+  }
+
+  .active.list-item {
+    color: #2196f3;
+    span {
+      color: #2196f3;
+    }
+  }
+
+}

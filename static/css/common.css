@@ -79,13 +79,13 @@
     align-items:center;
     justify-content: center; }
 
-.icon {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url(../images/icons.png) no-repeat;
-    background-size: 32px auto;
-}
+/*.icon {*/
+    /*display: inline-block;*/
+    /*width: 32px;*/
+    /*height: 32px;*/
+    /*background: url(../images/icons.png) no-repeat;*/
+    /*background-size: 32px auto;*/
+/*}*/
 .icon.prev {
     background-position: 0 0;
 }
@@ -125,7 +125,7 @@ body, #root, #root>div, .parent-box, .wh{
 }
 #content {
     position: absolute;
-    top: 2.2rem;
+    top: 2.4rem;
     bottom: 0;
     right: 0;
     left: 0;

@@ -36,7 +36,7 @@ export default class ProcessBar extends Component {
         return (
             <div className='wrap process-bar'>
                 <Link className='link' to='/player'>
-                    <img src={item.image || ''} alt=""/>
+                    <img src={item.image || '../../static/images/logo1.png'} alt=""/>
                     <div className='info flex'>
                         <p>{item.name || '歌曲'}</p>
                         <span>{item.singer || '歌手'}</span>
@@ -45,7 +45,9 @@ export default class ProcessBar extends Component {
                 <div className="btn">
                     <i className={`iconfont change ${!this.props.isPlay ? 'icon-bofang pause' : 'icon-zanting play'}`}
                        onClick={this.play.bind(this)} />
-                    <i className='iconfont icon-liebiao1'/>
+                    <Link to={'/playList'}>
+                        <i className='iconfont icon-liebiao1'/>
+                    </Link>
                 </div>
             </div>
         )
