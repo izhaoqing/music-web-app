@@ -121,7 +121,7 @@ export default class Singer extends Component {
                 <div id={'content'} className='singer-page'>
                     <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
                     <div className={this.state.isHidden ? 'hidden' : 'show'}>
-                    <ul className='wh'>
+                    <ul className='wh singer-type-list'>
                         {
                             this.state.singers.map(item => {
                                 return (

@@ -79,13 +79,6 @@
     align-items:center;
     justify-content: center; }
 
-/*.icon {*/
-    /*display: inline-block;*/
-    /*width: 32px;*/
-    /*height: 32px;*/
-    /*background: url(../images/icons.png) no-repeat;*/
-    /*background-size: 32px auto;*/
-/*}*/
 .icon.prev {
     background-position: 0 0;
 }
@@ -106,14 +99,6 @@
 }
 .icon.repeat-random {
     background-position: 0 -192px;
-}
-.icon-volume {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background: url(../images/icons.png) no-repeat;
-    background-size: 16px auto;    
-    background-position: 0 -112px;
 }
 
 body, #root, #root>div, .parent-box, .wh{

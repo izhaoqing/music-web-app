@@ -19,6 +19,6 @@ class Progress extends Component {
 }
 Progress.defaultProps = {
     barColor: '#4f9248'
-}
+};
 
 export default Progress;

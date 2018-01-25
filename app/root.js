@@ -144,6 +144,13 @@ class App extends Component {
                 isPlay: !this.state.isPlay
             });
         });
+        Pubsub.subscribe('MUSIC_PRESS_CHANGE', (msg, data) => {
+            console.log(msg, data);
+            $('#player').jPlayer('play', data.progress * data.duration);
+            this.setState({
+                isPlay: true
+            })
+        })
     }
     componentWillUnmount() {
         Pubsub.unsubscribe('PLAY_MUSIC');
@@ -153,6 +160,7 @@ class App extends Component {
         Pubsub.unsubscribe('THIS_MUSIC');
         Pubsub.unsubscribe('PLAY');
         Pubsub.unsubscribe('PARSE');
+        Pubsub.unsubscribe('MUSIC_PRESS_CHANGE');
     }
     render() {
         return(

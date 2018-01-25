@@ -33,9 +33,6 @@ export default class Player extends Component {
     componentWillUnmount() {
         $('#player').unbind($.jPlayer.event.timeupdate);
     }
-    handlePressChange(progress) {
-        $('#player').jPlayer('play', progress * duration);
-    }
     changeVolumeHandler(progress) {
         $('#player').jPlayer('volume', progress);
     }
@@ -60,6 +57,9 @@ export default class Player extends Component {
     }
     parseMusic() {
         Pubsub.publish('PARSE');
+    }
+    musicPressChange(progress) {
+        Pubsub.publish('MUSIC_PRESS_CHANGE', {progress,duration});
     }
     formatTime(item) {
         let min = Math.round(item/60);
@@ -97,7 +97,7 @@ export default class Player extends Component {
                     <h3 className="music-artist">{this.props.currentMusicItem.singer}</h3>
                     <div className="flex" style={{flexDirection: 'row'}}>
                         <div className="volume-container flex">
-                            <i className="icon-volume" style={{marginRight: '.3rem'}}> </i>
+                            <i className="icon-volume iconfont icon-shengyin" style={{marginRight: '.3rem'}}> </i>
                             <div className="volume-wrapper">
                                 <Progress
                                     progress={this.state.volume}
@@ -112,7 +112,7 @@ export default class Player extends Component {
                     <div style={{height: '.5rem', marginTop: '.5rem', marginBottom: '.6rem'}}>
                         <Progress
                             progress={this.state.progress}
-                            onProgressChange={this.handlePressChange}
+                            onProgressChange={this.musicPressChange}
                             barColor='#585858'
                         >
                         </Progress>
