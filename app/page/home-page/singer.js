@@ -11,7 +11,8 @@ export default class Singer extends Component {
         this.state = {
             singers: [],
             data: [],
-            keys: []
+            keys: [],
+            isHidden: true
         }
     }
     componentDidMount() {
@@ -54,7 +55,8 @@ export default class Singer extends Component {
                 singers.push(data);
             }
 
-            this.setState({keys, singers});
+            this.setState({keys, singers, isHidden: false});
+
         });
     }
 
@@ -117,6 +119,8 @@ export default class Singer extends Component {
                         ? '' : <ProcessBar currentMusicItem={this.props.currentMusicItem} isPlay={this.props.isPlay}/>
                 }
                 <div id={'content'} className='singer-page'>
+                    <div className={`${!this.state.isHidden ? 'hidden' : 'show'} loading`}>加载中...</div>
+                    <div className={this.state.isHidden ? 'hidden' : 'show'}>
                     <ul className='wh'>
                         {
                             this.state.singers.map(item => {
@@ -144,6 +148,8 @@ export default class Singer extends Component {
                         }
 
                     </ul>
+
+                    </div>
                     <div className='tag-box'>
                         <ul className='tag-list'>
                             {
