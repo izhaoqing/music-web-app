@@ -7,12 +7,26 @@ import { createSong } from "../config/song";
 import './playList.less';
 
 export default class PlayList extends Component {
-    componentDidMount() {
-
+    constructor() {
+        super();
+        this.state = {
+            music_list: MUSIC_LIST
+        }
     }
-
+    deleteMusic(musicItem) {
+        // event.stopPropagation();
+        MUSIC_LIST.forEach((item,i,arr) => {
+            if(musicItem.songmid === item.mid) {
+                arr.splice(i,1);
+                console.log(item);
+            }
+        });
+        window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
+        this.setState({
+            music_list: MUSIC_LIST
+        })
+    }
     render() {
-        // let item = this.state.musicList;
         return(
             <div>
                 <Header title={'播放列表'} left={'left'}/>
@@ -23,10 +37,11 @@ export default class PlayList extends Component {
                 <div id="content">
                     <div className={`play-list`}>
                         <ul style={{padding:'0 .75rem',background:'#fafafa'}}>
-                            {MUSIC_LIST.map(item => {
+                            {this.state.music_list.map(item => {
                                 if(item.mid) {
                                     return <SongItem
                                         key={item.mid} musicItem={item}
+                                        deleteMusic={this.deleteMusic.bind(this)}
                                         isCurrent={item.mid === this.props.currentMusicItem.mid} />
                                 }
                             })}
@@ -44,18 +59,6 @@ class SongItem extends Component {
 
         let musicItem = createSong(item);
         Pubsub.publish('PLAY_MUSIC', musicItem);
-
-        let isRepeat = false;
-        for (let i=0; i<MUSIC_LIST.length; i++) {
-            if(MUSIC_LIST[i].mid === musicItem.mid) {
-                isRepeat = true;
-            }
-        }
-
-        if(!isRepeat) {
-            MUSIC_LIST.push(musicItem);
-            window.localStorage.setItem('music_list', JSON.stringify(MUSIC_LIST));
-        }
     }
     render() {
         let item = this.props.musicItem;
@@ -67,16 +70,23 @@ class SongItem extends Component {
             interval: item.duration,
             albummid: item.albummid,
             songmid: item.mid,
+            image: item.image
         }
         return(
             <li className={`list-item flex ${this.props.isCurrent ? 'active' : ''}`}
-                onClick={this.playMusic.bind(this, musicItem)}
-            >
+                onClick={this.playMusic.bind(this, musicItem)}>
                 <div className={'item-info flex'}>
                     <p className={'ell'}>{item.name}</p>
                     <span className={'ell'}>{item.singer}</span>
                 </div>
-                <i className={'iconfont icon-cuohao'}> </i>
+                {
+                    this.props.isCurrent ? "" :
+                        <i className={'iconfont icon-cuohao'}
+                            onClick={(e) => {
+                               e.stopPropagation();
+                                this.props.deleteMusic(musicItem);
+                           }}> </i>
+                }
             </li>
         )
     }
