@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageHeader from './page-header';
 import {Link} from 'react-router';
-import { getDiscList } from '../../api/recommend';
+import { getDiscList, getBanner } from '../../api/recommend';
 import './recommend.less';
 import ProcessBar from '../../components/process-bar';
 
@@ -20,8 +20,14 @@ export default class Recommend extends Component {
         }
     }
     componentDidMount() {
-        getDiscList().then(res => {
-            console.log(res);
+        // getDiscList().then(res => {
+        //     console.log(res);
+        //     this.setState({
+        //         data: res.data,
+        //         isHidden: false
+        //     });
+        // });
+        getBanner().then(res => {
             this.setState({
                 data: res.data,
                 isHidden: false
@@ -38,7 +44,7 @@ export default class Recommend extends Component {
                     // console.log(sliderIndex)
                 }
             }, 3000);
-        });
+        })
     }
     componentWillUnmount() {
         clearInterval(this.timer);

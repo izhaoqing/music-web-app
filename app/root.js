@@ -12,6 +12,7 @@ import Recommend from './page/home-page/recommend.js';
 // import getSongUrl from './config/play_config';
 import getOptions from './config/music_url';
 import PlayList from './components/playList';
+import RecommendList from './components/recommendList';
 
 let noMusci = {
     type: 'nomusic',
@@ -185,6 +186,7 @@ export default class Root extends Component {
                     <Route path='singerDetail' component={SingerDetail}/>
                     <Route path='recommend' component={Recommend} />
                     <Route path='playList' component={PlayList} />
+                    <Route path='recommendList' component={RecommendList}/>
                 </Route>
             </Router>
         )

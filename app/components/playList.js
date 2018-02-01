@@ -1,3 +1,6 @@
+/*
+* 播放列表
+* */
 import React, { Component } from 'react';
 import MUSIC_LIST from '../config/musicList';
 import Header from './header';
