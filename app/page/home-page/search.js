@@ -106,6 +106,7 @@ export default class Search extends Component {
 
     //搜索
     handleSearch() {
+        if(!this.input.value) return false;
         this._search(this.input.value, 1);
         this.query = this.input.value;
         // sliderFn(this.parentNode, this.scrollNode, this._loadCb);
