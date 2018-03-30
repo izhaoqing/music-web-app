@@ -8,16 +8,28 @@ export default class ProcessBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            repeatOnce: false
             // currentMusicItem: this.props.currentMusicItem || {}
             // isPlay: this.props.isPlay
         }
     }
+
     componentDidMount() {
-        // console.log(this.props.currentMusicItem);
+        $('#player').bind($.jPlayer.event.timeupdate, (e) => {
+            if (e.jPlayer.status.ended) {
+                this.changeMusic();
+            }
+        });
     }
+
+    componentWillUnmount() {
+        $('#player').unbind($.jPlayer.event.timeupdate);
+    }
+
     componentWillReceiveProps (next) {
         console.log(next.isPlay);
     }
+
     play() {
         if (this.props.isPlay) {
             this.parseMusic();
@@ -30,6 +42,19 @@ export default class ProcessBar extends Component {
     }
     parseMusic() {
         Pubsub.publish('PARSE');
+    }
+    nextMusic() {
+        Pubsub.publish('NEXT_MUSIC');
+    }
+    playThisMusic() {
+        Pubsub.publish('THIS_MUSIC');
+    }
+    changeMusic() {
+        if (this.state.repeatOnce) {
+            this.playThisMusic();
+        } else {
+            this.nextMusic();
+        }
     }
     render () {
         let item = this.props.currentMusicItem || {};
