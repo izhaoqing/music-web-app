@@ -34,14 +34,11 @@ export default class Recommend extends Component {
             });
             this.sliderFn(0);
             this.timer = setInterval(() => {
-                // console.log(this.sliderBox.querySelectorAll('li'));
-                // return false;
                 if(this.sliderBox.querySelectorAll('li').length === 0) {
                     return false;
                 } else {
                     sliderIndex = sliderIndex++ > this.sliderBox.querySelectorAll('li').length-2 ? 0 : sliderIndex;
                     this.sliderFn(sliderIndex);
-                    // console.log(sliderIndex)
                 }
             }, 3000);
         })
@@ -52,7 +49,6 @@ export default class Recommend extends Component {
     }
     sliderFn(i) {
         console.log(i);
-        // this.sliderBox.querySelectorAll('li').style.opacity = 0;
         this.sliderBox.querySelectorAll('li').forEach(item => {
             item.style.opacity = 0;
         });
