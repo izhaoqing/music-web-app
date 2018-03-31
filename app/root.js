@@ -34,9 +34,14 @@ class App extends Component {
     }
     //切换音乐
     changeMusic(type) {
-        let changeMusic = true;
         if (MUSIC_LIST.length === 0) return false;
-        let index = MUSIC_LIST.indexOf(this.state.currentMusicItem);
+        let changeMusic = true;
+        let index = 0;
+
+        MUSIC_LIST.forEach((v, i) => {
+            if(v.mid === this.state.currentMusicItem.mid) index = i;
+        });        
+
         if (type === 'prev') {
             index = (index - 1) < 0 ? MUSIC_LIST.length-1 : index-1;
         } else if (type === 'next') {
