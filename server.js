@@ -11,6 +11,7 @@ new WebpackDevServer(webpack(config), {
     // It suppress everything except error, so it has to be set to false as well
     // to see success build.
     noInfo: false,
+    disableHostCheck: true,
     stats: {
         // Config for minimal console.log mess.
         assets: false,
@@ -21,7 +22,7 @@ new WebpackDevServer(webpack(config), {
         chunks: false,
         chunkModules: false
     }
-}).listen(3000, 'localhost', function (err) {
+}).listen(3000, '0.0.0.0', function (err) {
     if (err) {
         console.log(err);
         return;
