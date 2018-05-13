@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import jPlayer from 'jplayer';
 import Player from './page/player';
 import MUSIC_LIST from './config/musicList';
 import MusicList from './components/musicList';
-import { Router, Route, IndexRoute, Link, hashHistory} from 'react-router';
+import { Router, Route, IndexRoute, Link, hashHistory,} from 'react-router';
 import Pubsub from 'pubsub-js';
 import Billboard from "./page/home-page/billboard";
 import Search from './page/home-page/search';
 import Singer from './page/home-page/singer';
 import SingerDetail from './components/singerDetail';
 import Recommend from './page/home-page/recommend.js';
-// import getSongUrl from './config/play_config';
 import getOptions from './config/music_url';
 import PlayList from './components/playList';
 import RecommendList from './components/recommendList';
@@ -177,7 +178,7 @@ class App extends Component {
     }
 }
 
-export default class Root extends Component {
+class Root extends Component {
     render() {
         return(
             <Router history={hashHistory}>
@@ -197,4 +198,6 @@ export default class Root extends Component {
         )
     }
 }
+
+export default Root;
 

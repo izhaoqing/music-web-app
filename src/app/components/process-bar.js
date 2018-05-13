@@ -1,6 +1,7 @@
 /*页面底部播放条*/
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import $ from 'jquery';
 import Pubsub from 'pubsub-js';
 import './process-bar.less';
 

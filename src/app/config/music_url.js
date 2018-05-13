@@ -1,3 +1,4 @@
+import $ from 'jquery';
 let guid = _getGuid();
 export default function getOptions (musicId, cb) {
     $.ajax({

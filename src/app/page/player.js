@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Progress from '../components/progress';
+import $ from 'jquery';
 import './player.less';
 import Pubsub from 'pubsub-js';
 import Header from '../components/header';
