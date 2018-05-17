@@ -74,8 +74,8 @@ export default class Singer extends Component {
 
     //点击锚点
     scrollTo(id) {
-        console.log(id)
-        document.querySelector(id).scrollIntoView();
+        console.log(id);
+        document.querySelector(id).parentNode.scrollIntoView();
     }
 
     //滑动锚点
