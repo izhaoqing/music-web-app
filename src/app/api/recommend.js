@@ -1,8 +1,5 @@
 import jsonp from '../config/jsonp';
-import 'whatwg-fetch';
-import {commonParams, options} from './config'
-import $ from 'jquery';
-import param from '../config/jsonp';
+import {commonParams, options} from './config';
 
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -45,7 +42,7 @@ export function getBanner() {
     return jsonp(url, data, options);
 }
 
-export function getSongList(disstid, cb) {
+export function getSongList(disstid) {
     // let url = 'localhost:4000';
     // const data = Object.assign({}, commonParams, {
     //     disstid,
@@ -70,7 +67,7 @@ export function getSongList(disstid, cb) {
     //         cb(res);
     //     }
     // });
-    let url = "http://localhost:4000";
+    let url = "http://47.75.89.71:4000";
     return jsonp(url, {disstid});
 }
 

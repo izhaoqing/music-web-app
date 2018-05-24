@@ -3,11 +3,9 @@ const http = require("http");
 const server = http.createServer((req,res)=>{
 
     //从url中获取数据
-    const getData = str => {
-        return req.url.split('&').map(item => {
-            return (new RegExp(str)).test(item) ? item.split('=')[1] || '' : ''
-        }).join('');
-    };
+    const getData = str => req.url.split('&').map(item => {
+        return (new RegExp(str)).test(item) ? item.split('=')[1] || '' : ''
+    }).join('');
 
     const id = getData('disstid');
     const callback = getData('callback');
