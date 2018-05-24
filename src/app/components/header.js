@@ -11,7 +11,7 @@ class Header extends Component {
             <div className="components-header">
                 { this.props.left === 'left' ? (<span className='pull-left back iconfont icon-fanhui' style={{fontSize: '1.1rem'}} onClick={this.handleBack}></span>) : ''}
                 {/*<img width="40" src="../../static/images/logo.png" alt="" className="-col-auto" />*/}
-                <h1 className="caption">{this.props.title}</h1>
+                <h1 className="caption ell">{this.props.title}</h1>
                 { this.props.right === 'list' ?
                     <Link className='pull-right iconfont icon-liebiao1'
                           to='/billboard'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageHeader from './page-header';
 import {Link} from 'react-router';
-import { getDiscList, getBanner } from '../../api/recommend';
+import { getDiscList, getBanner, getRecomentList } from '../../api/recommend';
 import './recommend.less';
 import ProcessBar from '../../components/process-bar';
 
@@ -11,10 +11,8 @@ export default class Recommend extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data: {
-                songList: [],
-                slider: []
-            },
+            slider: [],
+            songList: [],
             isHidden: true,
             timer: null
         }
@@ -29,7 +27,7 @@ export default class Recommend extends Component {
         // });
         getBanner().then(res => {
             this.setState({
-                data: res.data,
+                slider: res.data.slider,
                 isHidden: false
             });
             this.sliderFn(0);
@@ -41,11 +39,18 @@ export default class Recommend extends Component {
                     this.sliderFn(sliderIndex);
                 }
             }, 3000);
+        });
+        getRecomentList().then(res => {
+            console.log(res);
+            this.setState({
+                songList: res.recomPlaylist.data.v_hot
+            })
         })
     }
     componentWillUnmount() {
         clearInterval(this.timer);
         sliderIndex = 0;
+        sessionStorage.setItem('recommend', document.querySelector('#root'),)
     }
     sliderFn(i) {
         console.log(i);
@@ -70,7 +75,7 @@ export default class Recommend extends Component {
                             <div className="banner">
                                 <ul ref={ul => this.sliderBox = ul}>
                                     {
-                                        this.state.data.slider.map(item => {
+                                        this.state.slider.map(item => {
                                             return(
                                                 <li key={item.id}>
                                                     <img src={item.picUrl} alt=""/>
@@ -83,14 +88,14 @@ export default class Recommend extends Component {
                             <h2>热门歌单</h2>
                             <ul className="rec-wrap">
                                 {
-                                    this.state.data.songList.map(item => {
+                                    this.state.songList.map(item => {
                                         return(
-                                            <li key={item.id}>
-                                                <Link to={{pathname:"/list", query:{dissid: item.pic_mid, type: 'recommend'}, state:{}  }}>
-                                                    <img src={item.picUrl} alt=""/>
+                                            <li key={item.pic_mid}>
+                                                <Link to={{pathname:"/list", query:{dissid: item.content_id, type: 'recommend'}, state:{}  }}>
+                                                    <img src={item.cover} alt=""/>
                                                     <div>
-                                                        <p>{item.songListAuthor}</p>
-                                                        <span className='ell'>{item.songListDesc}</span>
+                                                        <p className='ell'>{item.title}</p>
+                                                        <span className='ell'>{item.username}</span>
                                                     </div>
                                                 </Link>
                                             </li>
