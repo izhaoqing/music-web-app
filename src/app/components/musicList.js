@@ -18,7 +18,6 @@ export default class MusicList extends Component {
     componentDidMount() {
         if (this.props.location.query.type === 'singer') {
             getSingerDetail(this.props.location.query.id).then(res => {
-                console.log(res);
                 this.setState({
                     musicList: res,
                     isHidden: false

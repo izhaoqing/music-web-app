@@ -67,8 +67,8 @@ export function getSongList(disstid) {
     //         cb(res);
     //     }
     // });
-    let url = "http://47.75.89.71:4000";
-    return jsonp(url, {disstid});
+    let url = "http://localhost:4000";
+    return jsonp(url, {id: disstid, type: 'recommend'});
 }
 
 export function getRecomentList() {

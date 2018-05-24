@@ -14,6 +14,7 @@ import Recommend from './page/home-page/recommend.js';
 import getOptions from './config/music_url';
 import PlayList from './components/playList';
 import RecommendList from './components/recommendList';
+import {getLyric} from './api/song';
 
 let noMusci = {
     type: 'nomusic',
@@ -77,6 +78,10 @@ class App extends Component {
                 isPlay = false;
                 return false;
             }
+            getLyric(musicItem.mid).then(res => {
+                console.log(res);
+            });
+
             this.setState({
                 currentMusicItem: musicItem,
                 isPlay: isPlay
