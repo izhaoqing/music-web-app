@@ -254,8 +254,6 @@ function search(query, page, zhida, perpage) {
 
 <img src='static/images/play.png' style='max-width: 300px; box-shadow: 0 0 10px #bbb;'/>
 
-<img src='static/images/lyric.png' style='max-width: 300px; box-shadow: 0 0 10px #bbb; float: left;'/>
-
 </div>
 
 音乐的播放功能使用了一个 [jPlayer](http://jplayer.org/) 的插件，首先它需要一个容器，然后初始化，在调用相关方法，播放时间和快进等功能都可以实现，功能强大，使用方便。
@@ -342,7 +340,7 @@ const lyric = Base64.decode(jsonp(url, data));
 ```
 
 lyric 数据如下：
-![lyric_str](/Users/zhaoqing/studyFiles/music-web-app/music-web-app/static/images/lyric_str.png)
+![lyric_str](./static/images/lyric_str.png)
 
 2, 处理歌词，得到一个数组，每个元素都是一句歌词，包含时间。
 
@@ -369,7 +367,7 @@ const lyricArr = createLyricArr(lyric);
 
 3, 处理后的歌词可以直接展示在页面上，数据如下。
 
-![](/Users/zhaoqing/studyFiles/music-web-app/music-web-app/static/images/lyric_arr.png)
+![](./static/images/lyric_arr.png)
 
 4, 计算高亮显示的歌词索引。
 
