@@ -1,9 +1,10 @@
 // import {commonParams} from './config'
 import jsonp from '../config/jsonp';
+import {IP} from './config';
 
 export function getLyric(mid) {
   // const url = 'http://ustbhuangyi.com/music/api/lyric';
-  const url = 'http://localhost:4000?type=lyric';
+  const url = 'http://'+ IP +':4000?type=lyric';
 
   // const data = Object.assign({}, commonParams, {
   //     g_tk: 1928093487,

@@ -1,5 +1,6 @@
 import jsonp from '../config/jsonp';
 import {commonParams, options} from './config';
+import {IP} from './config';
 
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -67,7 +68,7 @@ export function getSongList(disstid) {
     //         cb(res);
     //     }
     // });
-    let url = "http://localhost:4000";
+    let url = "http://"+ IP +":4000";
     return jsonp(url, {id: disstid, type: 'recommend'});
 }
 

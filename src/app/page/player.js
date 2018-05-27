@@ -49,7 +49,7 @@ export default class Player extends Component {
             left: '',
             repeatOnce: false,
             //是否显示歌词
-            isShowLyric: true,
+            isShowLyric: false,
             //歌词
             lyricArr: [],
             //需要高亮显示的歌词的索引
