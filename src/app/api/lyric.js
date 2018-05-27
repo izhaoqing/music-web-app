@@ -29,18 +29,18 @@ export function getLyric(mid) {
 
 export function createLyricArr (lyric) {
     let arr = [];
-    lyric.split(/\n/).map(item => {
-        let time = item.split(']')[0].replace('[', '');
+    lyric.split(/\n/).reduce((prev, curr) => {
+        let time = curr.split(']')[0].replace('[', '');
         let v = {
-            str : time,
-            time: (Number(time.split(':')[1]) || 0) + (Number(time.split(':')[0]) || 0) * 60,
-            text: item.split(']')[1] || ''
+            time: (time.split(':')[1] - 0) + (time.split(':')[0] - 0) * 60,
+            text: curr.split(']')[1] || ''
         };
         if (v.time && v.text) {
-            arr.push(v);
+            prev.push(v);
         }
-    });
-    console.log(arr);
+        return prev;
+    }, arr);
+    console.log(JSON.stringify(arr));
     return arr;
 }
 

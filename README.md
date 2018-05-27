@@ -248,9 +248,15 @@ function search(query, page, zhida, perpage) {
 
 ## 播放功能
 
-播放页：
+### 播放页
+
+<div style='overflow: hidden; padding: 10px;'>
 
 <img src='static/images/play.png' style='max-width: 300px; box-shadow: 0 0 10px #bbb;'/>
+
+<img src='static/images/lyric.png' style='max-width: 300px; box-shadow: 0 0 10px #bbb; float: left;'/>
+
+</div>
 
 音乐的播放功能使用了一个 [jPlayer](http://jplayer.org/) 的插件，首先它需要一个容器，然后初始化，在调用相关方法，播放时间和快进等功能都可以实现，功能强大，使用方便。
 
@@ -317,15 +323,117 @@ function getUrl (id, vkey, id) {
 
 `getOptions` 函数需要传入歌曲 `id`，`guid` 和回调函数，通过请求可以在返回的数据中得到 `vkey`，再通过 `getUrl` 函数，拼成完整的播放地址，最后将 `url` 传给回调函数，我们在回调函数中就可以直接使用了。直接在浏览器地址栏中输入此 url，也可以直接播放，或者下载。
 
+### 歌词显示
+
+<img src='static/images/lyric.png' style='max-width: 300px; box-shadow: 0 0 10px #bbb; float: left;'/>
+
+1, 获取到的歌词是一段字符串，需要先经过base64转码。
+
+```js
+import { Base64 } from 'js-base64';
+const url = 'zhaoqblog.top:4000';
+const data = {
+    id: mid,
+    pcachetime: +new Date(),
+    type: 'lyric'
+}
+//其中 mid 为歌曲的 songmid。
+const lyric = Base64.decode(jsonp(url, data));
+```
+
+lyric 数据如下：
+![lyric_str](/Users/zhaoqing/studyFiles/music-web-app/music-web-app/static/images/lyric_str.png)
+
+2, 处理歌词，得到一个数组，每个元素都是一句歌词，包含时间。
+
+```js
+function createLyricArr (lyric) {
+    let arr = [];
+    lyric.split(/\n/).reduce((prev, curr) => {
+        let time = curr.split(']')[0].replace('[', '');
+        let v = {
+            time: (time.split(':')[1] - 0) + (time.split(':')[0] - 0) * 60,
+            text: curr.split(']')[1] || ''
+        };
+        if (v.time && v.text) {
+            prev.push(v);
+        }
+        return prev;
+    }, arr);
+    console.log(arr);
+    return arr;
+}
+
+const lyricArr = createLyricArr(lyric);
+```
+
+3, 处理后的歌词可以直接展示在页面上，数据如下。
+
+![](/Users/zhaoqing/studyFiles/music-web-app/music-web-app/static/images/lyric_arr.png)
+
+4, 计算高亮显示的歌词索引。
+
+```js
+//传入的 time 为播放时间。
+function lyricIndex (lyricArr, time) {
+    let timeArr = lyricArr.map(item => item.time);
+    let index = 0;
+
+    if (time < timeArr[0]) return 0;
+
+    for(let i=0; i<timeArr.length; i++) {
+        if (timeArr[i] <= time && timeArr[i+1] && timeArr[i+1] > time) {
+            index = i;
+            break;
+        } 
+        if (!timeArr[i+1]) {
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+}
+
+//假设当前播放到第 3.00s，需要高亮显示的歌词的索引值是：
+let index = lyricIndex(lyricArr, 3.00);
+```
+
+最后将 lyricArr 显示在页面上，第 index 句需要高亮显示，表示当前正在播放这一句词。
+
 ## 其他
 
-获取数据的接口和参数都参考了 qq 音乐网页版，在浏览器 Network 中可以看到每个请求地址和参数。
+1. 获取数据的接口和参数大多都参考了 qq 音乐网页版，在浏览器 Network 中可以看到每个请求地址和参数。
+2. 接下来会使用 redux 管理数据，如当前播放歌曲，播放列表等。
+3. UI 布局不是十分美观，后续会调整，加入更换主题的功能。
+4. 代码中用到的 josnp 函数为：
 
-歌词显示还没有写，会增加歌曲下载功能。
+```js
+import originJsonp from 'jsonp'
 
-接下来会使用 redux 管理数据，如当前播放歌曲，播放列表等。
+export default function jsonp(url, data, option) {
+    url += (url.indexOf('?') < 0 ? '?' : '&') + param(data)
 
-UI 布局不是十分美观，后续会调整，加入更换主题的功能。
+    return new Promise((resolve, reject) => {
+        originJsonp(url, option, (err, data) => {
+            if (!err) {
+                resolve(data)
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+export function param(data) {
+    let url = ''
+    for (var k in data) {
+        let value = data[k] !== undefined ? data[k] : ''
+        url += '&' + k + '=' + encodeURIComponent(value)
+    }
+    return url ? url.substring(1) : ''
+}
+```
 
 
 
