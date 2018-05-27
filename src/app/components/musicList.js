@@ -25,7 +25,7 @@ export default class MusicList extends Component {
             });
         } else if(this.props.location.query.type === 'recommend') {
             getSongList(this.props.location.query.dissid).then(res => {
-                console.log(JSON.stringify(res));
+                // console.log(JSON.stringify(res));
                 this.setState({
                     musicList: res.cdlist[0],
                     isHidden: false
