@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import jPlayer from 'jplayer';
-import Lyric from 'lyric-parser';
 import Player from './page/player';
 import MUSIC_LIST from './config/musicList';
 import MusicList from './components/musicList';
