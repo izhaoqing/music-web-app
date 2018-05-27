@@ -340,7 +340,10 @@ const lyric = Base64.decode(jsonp(url, data));
 ```
 
 lyric 数据如下：
+
 ![lyric_str](./static/images/lyric_str.png)
+
+
 
 2, 处理歌词，得到一个数组，每个元素都是一句歌词，包含时间。
 
